@@ -1,0 +1,114 @@
+.elementor-control-layout.elementor-control-type-choose.elementor-control-separator-none .elementor-control-input-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border: 1px solid #a4afb7;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.elementor-control-layout.elementor-control-type-choose.elementor-control-separator-none .elementor-control-input-wrapper .elementor-choices {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: auto;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    background: #fff;
+    margin-bottom: -1px;
+}
+
+.elementor-control-layout.elementor-control-type-choose.elementor-control-separator-none .elementor-control-input-wrapper .elementor-choices .elementor-choices-label {
+    border-right: 1px solid #a4afb7;
+    border-bottom: 1px solid #a4afb7;
+    border-radius: 0;
+    box-sizing: border-box;
+    font-size: 25px;
+    padding: 7px 0;
+    width: 33.33333%;
+}
+.elementor-control-layout.elementor-control-type-choose.elementor-control-separator-none .elementor-control-input-wrapper .elementor-choices .elementor-choices-label:nth-of-type(3n) {
+    border-right: none
+}
+.elementor-control-layout.elementor-control-type-choose.elementor-control-separator-none .elementor-control-input-wrapper .elementor-choices input:checked+.elementor-choices-label {
+    background: #a4afb7;
+}
+
+.yoomag_elements{
+    background-image: url(../img/layouts.png) !important;
+    background-repeat: no-repeat;
+    background-size: auto !important;
+    margin-top: -5px !important;
+    width: 60px !important;
+    height: 45px !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.yoomag-grid-1 {
+    background-position: 1px 8px !important;
+}
+.yoomag-grid-2 {
+    background-position: 1px -39px !important;
+}
+.yoomag-grid-3 {
+     background-position: -63px -39px !important;
+}
+.yoomag-grid-4 {
+    background-position: 2px -85px !important;
+}
+.yoomag-grid-5 {
+    background-position: -63px -85px !important;
+}
+
+.yoomag-module-1 {
+    background-position: 4px -131px !important;
+}
+
+.yoomag-module-2 {
+    background-position: -61px -131px !important;
+}
+.yoomag-module-3 {
+    background-position: 1px -177px !important;
+}
+
+.yoomag-module-4 {
+    background-position: -63px -177px !important;
+}
+.yoomag-module-5 {
+    background-position: 1px -223px !important;
+}
+.yoomag-module-6 {
+    background-position: -61px -223px !important;
+}
+.yoomag-module-7 {
+    background-position: -61px -269px !important;
+}
+.yoomag-module-8 {
+    background-position: 1px -315px !important;
+}
+.yoomag-module-9 {
+    background-position: -62px -315px !important;
+}
+
+.yoomag-slider-1 {
+    background-position: 1px -403px !important;
+}
+
+.yoomag-slider-2 {
+    background-position: 1px -360px !important;
+}
+
+.yoomag-slider-3 {
+    background-position: -61px -361px !important;
+}
+
+.yoomag-ads-block {
+    background-position: 1px -269px !important;
+}
