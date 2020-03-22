@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\SliderOne\Widgets;
+namespace GoodMagazineElements\Modules\BlockFive\Widgets;
 
 // Elementor Classes
 use Elementor\Widget_Base;
@@ -19,16 +19,16 @@ if (!defined('ABSPATH')) {
 /**
  * Tiled Posts Widget
  */
-class Slider_One extends Widget_Base {
+class Block_Five extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-slider-one';
+        return 'gm-post-block-five';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Slider One', GME_TEXT_DOMAIN);
+        return esc_html__('Post Block Five', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
@@ -71,13 +71,40 @@ class Slider_One extends Widget_Base {
                 ]
         );
 
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+                'section_post_settings', [
+            'label' => esc_html__('Post Settings', GME_TEXT_DOMAIN),
+                ]
+        );
+
         $this->add_control(
                 'no_of_posts', [
             'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 1,
             'max' => 50,
-            'default' => 5,
+            'default' => 6,
+                ]
+        );
+
+        $this->add_control(
+                'column_count', [
+            'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['%'],
+            'range' => [
+                '%' => [
+                    'min' => 1,
+                    'max' => 6,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => '%',
+                'size' => 2,
+            ]
                 ]
         );
 
@@ -134,61 +161,8 @@ class Slider_One extends Widget_Base {
             'label' => esc_html__('Excerpt Length', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 400
+            'default' => 200
         ]);
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'carousel_section', [
-            'label' => esc_html__('Carousel Settings', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_CONTENT,
-                ]
-        );
-
-        $this->add_control(
-                'autoplay', [
-            'label' => esc_html__('Autoplay', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SWITCHER,
-            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
-            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
-            'return_value' => 'yes',
-            'default' => 'yes',
-                ]
-        );
-
-        $this->add_control(
-                'pause_duration', [
-            'label' => esc_html__('Pause Duration', 'plugin-name'),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['s'],
-            'range' => [
-                's' => [
-                    'min' => 1,
-                    'max' => 20,
-                    'step' => 1
-                ],
-            ],
-            'default' => [
-                'unit' => 's',
-                'size' => 5,
-            ],
-            'condition' => [
-                'autoplay' => 'yes',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'nav', [
-            'label' => esc_html__('Nav Arrow', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SWITCHER,
-            'label_on' => esc_html__('Show', GME_TEXT_DOMAIN),
-            'label_off' => esc_html__('Hide', GME_TEXT_DOMAIN),
-            'return_value' => 'yes',
-            'default' => 'yes',
-                ]
-        );
 
         $this->end_controls_section();
 
@@ -200,7 +174,7 @@ class Slider_One extends Widget_Base {
 
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
-            'name' => 'slide_image',
+            'name' => 'image',
             'exclude' => ['custom'],
             'include' => [],
             'default' => 'large',
@@ -221,10 +195,10 @@ class Slider_One extends Widget_Base {
             ],
             'default' => [
                 'unit' => '%',
-                'size' => 70,
+                'size' => 60,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-image .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .gm-post-thumb .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
             ],
                 ]
         );
@@ -296,43 +270,6 @@ class Slider_One extends Widget_Base {
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
                 '{{WRAPPER}} .gm-post-slider h5' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
-            ],
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'content_box_style', [
-            'label' => esc_html__('Content Box', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->add_control(
-                'content_box_bg_color', [
-            'label' => esc_html__('Background Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-content' => 'background-color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'nav_icon_color', [
-            'label' => esc_html__('Navigation Icon Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-slider-one .owl-prev, {{WRAPPER}} .gm-post-slider-one .owl-next' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -463,41 +400,50 @@ class Slider_One extends Widget_Base {
     /** Render Layout */
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $image_size = $settings['slide_image_size'];
-        $args = $this->query_args();
-        $post_query = new \WP_Query($args);
-        $params = array(
-            'autoplay' => $settings['autoplay'] == 'yes' ? true : false,
-            'pause' => (int) $settings['pause_duration']['size'] * 1000,
-            'nav' => $settings['nav'] == 'yes' ? true : false
-        );
-        $params = json_encode($params);
+        $column_count = $settings['column_count']['size'];
         ?>
-        <div class="gm-post-slider-block">
-            <!-- Heading -->
+        <div class="gm-post-block">
+
             <?php $this->render_header(); ?>
 
-            <!-- Post Lists -->
-            <?php if ($post_query->have_posts()) : ?>
-                <div class="gm-post-slider-one owl-carousel" data-params='<?php echo $params; ?>'>
-                    <?php while ($post_query->have_posts()) : $post_query->the_post(); ?>
-                        <div class="gm-post-slides">
-                            <div class="gm-post-image">
-                                <?php good_magazine_elements_image($image_size); ?>
-                            </div>
+            <?php
+            $args = $this->query_args();
+            $post_query = new \WP_Query($args);
+            $counter = 1;
+            ?>
 
-                            <div class="gm-post-content">
-                                <?php $this->get_post_title(); ?>
-                                <?php $this->get_post_excerpt(); ?>
-                                <?php $this->get_post_meta(); ?>
+            <?php if ($post_query->have_posts()) { ?>
+                <div class="gm-post-block-five gm-col-<?php echo esc_attr($column_count) ?>">
+                    <?php
+                    while ($post_query->have_posts()) {
+                        $post_query->the_post();
+                        $image_size = $settings['image_size'];
+                        $excerpt_length = $settings['excerpt_length'];
+                        ?>
+
+                            <div class="gm-post-list">
+                                <?php good_magazine_elements_image($image_size); ?>
+
+                                <div class="gm-post-content">
+
+                                    <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
+
+                                    <?php $this->get_post_meta(); ?>
+
+                                    <?php if ($excerpt_length) { ?>
+                                        <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
+                                    <?php } ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endwhile; ?>
+                        <?php
+                    }
+                    wp_reset_postdata();
+                    ?>
                 </div>
                 <?php
-                wp_reset_postdata();
-            endif;
+            }
             ?>
+
         </div>
         <?php
     }

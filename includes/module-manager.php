@@ -33,7 +33,10 @@ final class GME_Modules_Manager {
             'block-two',
             'block-three',
             'block-four',
+            'block-five',
             'slider-one',
+            'carousel-one',
+            'carousel-two',
         ];
 
         if (is_plugin_active('contact-form-7/wp-contact-form-7.php')) {

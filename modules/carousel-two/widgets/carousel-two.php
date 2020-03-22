@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\SliderOne\Widgets;
+namespace GoodMagazineElements\Modules\CarouselTwo\Widgets;
 
 // Elementor Classes
 use Elementor\Widget_Base;
@@ -19,16 +19,16 @@ if (!defined('ABSPATH')) {
 /**
  * Tiled Posts Widget
  */
-class Slider_One extends Widget_Base {
+class Carousel_Two extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-slider-one';
+        return 'gm-post-carousel-two';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Slider One', GME_TEXT_DOMAIN);
+        return esc_html__('Post Carousel Two', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
@@ -125,21 +125,6 @@ class Slider_One extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'section_post_excerpt', [
-            'label' => esc_html__('Post Excerpt', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_control('excerpt_length', [
-            'label' => esc_html__('Excerpt Length', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::NUMBER,
-            'min' => 0,
-            'default' => 400
-        ]);
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
                 'carousel_section', [
             'label' => esc_html__('Carousel Settings', GME_TEXT_DOMAIN),
             'tab' => Controls_Manager::TAB_CONTENT,
@@ -159,7 +144,7 @@ class Slider_One extends Widget_Base {
 
         $this->add_control(
                 'pause_duration', [
-            'label' => esc_html__('Pause Duration', 'plugin-name'),
+            'label' => esc_html__('Pause Duration', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['s'],
             'range' => [
@@ -179,6 +164,84 @@ class Slider_One extends Widget_Base {
                 ]
         );
 
+        $this->add_responsive_control(
+                'no_of_slides', [
+            'label' => esc_html__('No of Slides', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 10,
+                ],
+            ],
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
+                'size' => 3,
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 2,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+                ]
+        );
+
+        $this->add_responsive_control(
+                'slides_margin', [
+            'label' => esc_html__('Spacing Between Slides', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 100,
+                ],
+            ],
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
+                'size' => 20,
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 20,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 20,
+                'unit' => 'px',
+            ],
+                ]
+        );
+
+        $this->add_responsive_control(
+                'slides_stagepadding', [
+            'label' => esc_html__('Stage Padding', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 300,
+                ],
+            ],
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
+                'size' => 0,
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 0,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 0,
+                'unit' => 'px',
+            ],
+                ]
+        );
+
         $this->add_control(
                 'nav', [
             'label' => esc_html__('Nav Arrow', GME_TEXT_DOMAIN),
@@ -186,7 +249,16 @@ class Slider_One extends Widget_Base {
             'label_on' => esc_html__('Show', GME_TEXT_DOMAIN),
             'label_off' => esc_html__('Hide', GME_TEXT_DOMAIN),
             'return_value' => 'yes',
-            'default' => 'yes',
+                ]
+        );
+
+        $this->add_control(
+                'dots', [
+            'label' => esc_html__('Nav Dots', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SWITCHER,
+            'label_on' => esc_html__('Show', GME_TEXT_DOMAIN),
+            'label_off' => esc_html__('Hide', GME_TEXT_DOMAIN),
+            'return_value' => 'yes',
                 ]
         );
 
@@ -226,6 +298,19 @@ class Slider_One extends Widget_Base {
             'selectors' => [
                 '{{WRAPPER}} .gm-post-image .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
             ],
+                ]
+        );
+
+        $this->add_control(
+                'content_alignment', [
+            'label' => esc_html__('Content Alignment', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'left' => esc_html__('Left', GME_TEXT_DOMAIN),
+                'center' => esc_html__('Center', GME_TEXT_DOMAIN),
+                'right' => esc_html__('Right', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'left'
                 ]
         );
 
@@ -296,43 +381,6 @@ class Slider_One extends Widget_Base {
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
                 '{{WRAPPER}} .gm-post-slider h5' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
-            ],
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'content_box_style', [
-            'label' => esc_html__('Content Box', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->add_control(
-                'content_box_bg_color', [
-            'label' => esc_html__('Background Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-content' => 'background-color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'nav_icon_color', [
-            'label' => esc_html__('Navigation Icon Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-slider-one .owl-prev, {{WRAPPER}} .gm-post-slider-one .owl-next' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -458,38 +506,162 @@ class Slider_One extends Widget_Base {
         );
 
         $this->end_controls_section();
+
+        $this->start_controls_section(
+                'navingation_style', [
+            'label' => esc_html__('Navigation', GME_TEXT_DOMAIN),
+            'tab' => Controls_Manager::TAB_STYLE,
+                ]
+        );
+
+        $this->start_controls_tabs(
+                'style_tabs'
+        );
+
+        $this->start_controls_tab(
+                'style_normal_tab', [
+            'label' => esc_html__('Normal', GME_TEXT_DOMAIN),
+                ]
+        );
+
+        $this->add_control(
+                'nav_bg_color', [
+            'label' => esc_html__('Button Background Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next' => 'background-color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'nav_icon_color', [
+            'label' => esc_html__('Button Icon Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next' => 'color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'dot_bg_color', [
+            'label' => esc_html__('Dots Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .owl-carousel button.owl-dot' => 'background-color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+                'style_hover_tab', [
+            'label' => esc_html__('Hover', GME_TEXT_DOMAIN),
+                ]
+        );
+
+        $this->add_control(
+                'nav_bg_color_hover', [
+            'label' => esc_html__('Button Background Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev:hover, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next:hover' => 'background-color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'nav_icon_color_hover', [
+            'label' => esc_html__('Navigation Button Icon Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev:hover, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next:hover' => 'color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'dot_bg_color_hover', [
+            'label' => esc_html__('Dots Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .owl-carousel button.owl-dot:hover' => 'background-color: {{VALUE}}',
+            ],
+                ]
+        );
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->end_controls_section();
     }
 
     /** Render Layout */
     protected function render() {
         $settings = $this->get_settings_for_display();
         $image_size = $settings['slide_image_size'];
+        $content_alignment = $settings['content_alignment'];
         $args = $this->query_args();
         $post_query = new \WP_Query($args);
+
         $params = array(
             'autoplay' => $settings['autoplay'] == 'yes' ? true : false,
             'pause' => (int) $settings['pause_duration']['size'] * 1000,
-            'nav' => $settings['nav'] == 'yes' ? true : false
+            'items' => (int) $settings['no_of_slides']['size'],
+            'items_tablet' => (int) $settings['no_of_slides_tablet']['size'],
+            'items_mobile' => (int) $settings['no_of_slides_mobile']['size'],
+            'margin' => (int) $settings['slides_margin']['size'],
+            'margin_tablet' => (int) $settings['slides_margin_tablet']['size'],
+            'margin_mobile' => (int) $settings['slides_margin_mobile']['size'],
+            'stagepadding' => (int) $settings['slides_stagepadding']['size'],
+            'stagepadding_tablet' => (int) $settings['slides_stagepadding_tablet']['size'],
+            'stagepadding_mobile' => (int) $settings['slides_stagepadding_mobile']['size'],
+            'nav' => $settings['nav'] == 'yes' ? true : false,
+            'dots' => $settings['dots'] == 'yes' ? true : false
         );
         $params = json_encode($params);
         ?>
-        <div class="gm-post-slider-block">
+        <div class="gm-post-carousel-block">
             <!-- Heading -->
             <?php $this->render_header(); ?>
 
             <!-- Post Lists -->
             <?php if ($post_query->have_posts()) : ?>
-                <div class="gm-post-slider-one owl-carousel" data-params='<?php echo $params; ?>'>
+                <div class="gm-post-carousel-two owl-carousel" data-params='<?php echo $params; ?>'>
                     <?php while ($post_query->have_posts()) : $post_query->the_post(); ?>
                         <div class="gm-post-slides">
                             <div class="gm-post-image">
                                 <?php good_magazine_elements_image($image_size); ?>
-                            </div>
-
-                            <div class="gm-post-content">
-                                <?php $this->get_post_title(); ?>
-                                <?php $this->get_post_excerpt(); ?>
-                                <?php $this->get_post_meta(); ?>
+                                <div class="gm-post-content gm-align-<?php echo esc_attr($content_alignment); ?>">
+                                    <?php $this->get_post_title(); ?>
+                                    <?php $this->get_post_meta(); ?>
+                                </div>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -568,19 +740,8 @@ class Slider_One extends Widget_Base {
     /** Get Post Title */
     protected function get_post_title() {
         ?>
-        <h3 class="gm-post-title gm-big-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
+        <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
         <?php
-    }
-
-    /** Get Post Excerpt */
-    protected function get_post_excerpt() {
-        $settings = $this->get_settings_for_display();
-        $length = $settings['excerpt_length'];
-        if ($length) {
-            ?>
-            <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($length); ?></div>
-            <?php
-        }
     }
 
     /** Get Post Metas */
