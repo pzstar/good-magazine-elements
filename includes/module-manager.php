@@ -37,6 +37,7 @@ final class GME_Modules_Manager {
             'slider-one',
             'carousel-one',
             'carousel-two',
+            'grid-one',
         ];
 
         if (is_plugin_active('contact-form-7/wp-contact-form-7.php')) {

@@ -75,7 +75,7 @@ class GME_Widget_Loader {
             );
 
             $filename = GME_PATH . $filename . '.php';
-
+//echo $filename. "<br/>";
             if (is_readable($filename)) {
                 include( $filename );
             }
