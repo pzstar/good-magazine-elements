@@ -508,7 +508,7 @@ class Carousel_Two extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'navingation_style', [
+                'navigation_style', [
             'label' => esc_html__('Navigation', GME_TEXT_DOMAIN),
             'tab' => Controls_Manager::TAB_STYLE,
                 ]

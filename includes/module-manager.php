@@ -34,6 +34,7 @@ final class GME_Modules_Manager {
             'block-three',
             'block-four',
             'block-five',
+            'block-six',
             'slider-one',
             'carousel-one',
             'carousel-two',

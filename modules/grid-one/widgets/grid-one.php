@@ -282,50 +282,6 @@ class Grid_One extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'excerpt_style', [
-            'label' => esc_html__('Post Excerpt', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->add_control(
-                'excerpt_color', [
-            'label' => esc_html__('Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-content .gm-post-excerpt' => 'color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_group_control(
-                Group_Control_Typography::get_type(), [
-            'name' => 'excerpt_typography',
-            'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-content .gm-post-excerpt',
-                ]
-        );
-
-        $this->add_control(
-                'excerpt_margin', [
-            'label' => esc_html__('Margin', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::DIMENSIONS,
-            'allowed_dimensions' => 'vertical',
-            'size_units' => ['px', '%', 'em'],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-content .gm-post-excerpt' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
-            ],
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
                 'meta_style', [
             'label' => esc_html__('Post Metas', GME_TEXT_DOMAIN),
             'tab' => Controls_Manager::TAB_STYLE,
@@ -354,120 +310,6 @@ class Grid_One extends Widget_Base {
             'selector' => '{{WRAPPER}} .gm-post-meta span',
                 ]
         );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'navingation_style', [
-            'label' => esc_html__('Navigation', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->start_controls_tabs(
-                'style_tabs'
-        );
-
-        $this->start_controls_tab(
-                'style_normal_tab', [
-            'label' => esc_html__('Normal', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_control(
-                'nav_bg_color', [
-            'label' => esc_html__('Button Background Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next' => 'background-color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'nav_icon_color', [
-            'label' => esc_html__('Button Icon Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next' => 'color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'dot_bg_color', [
-            'label' => esc_html__('Dots Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .owl-carousel button.owl-dot' => 'background-color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->end_controls_tab();
-
-        $this->start_controls_tab(
-                'style_hover_tab', [
-            'label' => esc_html__('Hover', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_control(
-                'nav_bg_color_hover', [
-            'label' => esc_html__('Button Background Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev:hover, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next:hover' => 'background-color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'nav_icon_color_hover', [
-            'label' => esc_html__('Navigation Button Icon Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .owl-carousel .owl-nav button.owl-prev:hover, {{WRAPPER}} .owl-carousel .owl-nav button.owl-next:hover' => 'color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'dot_bg_color_hover', [
-            'label' => esc_html__('Dots Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .owl-carousel button.owl-dot:hover' => 'background-color: {{VALUE}}',
-            ],
-                ]
-        );
-        $this->end_controls_tab();
-
-        $this->end_controls_tabs();
 
         $this->end_controls_section();
     }
@@ -551,7 +393,7 @@ class Grid_One extends Widget_Base {
         $args['ignore_sticky_posts'] = 1;
         $args['post_status'] = 'publish';
         $args['offset'] = $settings['posts_offset'];
-        $args['posts_per_page'] = 8;
+        $args['posts_per_page'] = 7;
         $args['post__not_in'] = $post_type == 'post' ? $settings['posts_exclude_posts'] : [];
 
         $args['tax_query'] = [];

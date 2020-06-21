@@ -89,22 +89,30 @@ class Block_Five extends Widget_Base {
                 ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
                 'column_count', [
             'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
-            'size_units' => ['%'],
             'range' => [
-                '%' => [
+                'px' => [
                     'min' => 1,
                     'max' => 6,
                     'step' => 1
                 ],
             ],
-            'default' => [
-                'unit' => '%',
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
                 'size' => 2,
-            ]
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
                 ]
         );
 
@@ -401,6 +409,8 @@ class Block_Five extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         $column_count = $settings['column_count']['size'];
+        $column_count_tablet = $settings['column_count_tablet']['size'];
+        $column_count_mobile = $settings['column_count_mobile']['size'];
         ?>
         <div class="gm-post-block">
 
@@ -409,11 +419,9 @@ class Block_Five extends Widget_Base {
             <?php
             $args = $this->query_args();
             $post_query = new \WP_Query($args);
-            $counter = 1;
-            ?>
-
-            <?php if ($post_query->have_posts()) { ?>
-                <div class="gm-post-block-five gm-col-<?php echo esc_attr($column_count) ?>">
+            
+            if ($post_query->have_posts()) { ?>
+                <div class="gm-post-block-five gm-row gm-col-<?php echo esc_attr($column_count) ?> gm-tablet-col-<?php echo esc_attr($column_count_tablet) ?> gm-mobile-col-<?php echo esc_attr($column_count_mobile) ?>">
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
