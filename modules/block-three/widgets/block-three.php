@@ -33,7 +33,7 @@ class Block_Three extends Widget_Base {
 
     /** Icon */
     public function get_icon() {
-        return 'fa fa-code';
+        return 'good-mag-elements good-mag-block-three';
     }
 
     /** Category */
@@ -111,10 +111,11 @@ class Block_Three extends Widget_Base {
         );
 
         $this->add_control('featured_excerpt_length', [
-            'label' => esc_html__('Excerpt Length', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 250
+            'default' => 250,
+            'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
         $this->add_control(
@@ -211,10 +212,11 @@ class Block_Three extends Widget_Base {
         );
 
         $this->add_control('listing_excerpt_length', [
-            'label' => esc_html__('Excerpt Length', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 0
+            'default' => 0,
+            'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
         $this->add_control(

@@ -33,7 +33,7 @@ class Grid_One extends Widget_Base {
 
     /** Icon */
     public function get_icon() {
-        return 'fa fa-code';
+        return 'good-mag-elements good-mag-grid-one';
     }
 
     /** Category */
@@ -321,7 +321,6 @@ class Grid_One extends Widget_Base {
         $content_alignment = $settings['content_alignment'];
         $args = $this->query_args();
         $post_query = new \WP_Query($args);
-
         ?>
         <div class="gm-post-grid-block">
             <!-- Heading -->
@@ -330,9 +329,10 @@ class Grid_One extends Widget_Base {
             <!-- Post Lists -->
             <?php if ($post_query->have_posts()) : ?>
                 <div class="gm-post-grid-one">
-                    <?php while ($post_query->have_posts()) : $post_query->the_post();
-                    $count = $post_query->current_post +1; 
-                    ?>
+                    <?php
+                    while ($post_query->have_posts()) : $post_query->the_post();
+                        $count = $post_query->current_post + 1;
+                        ?>
                         <div class="gm-post gm-post-<?php echo $count; ?>">
                             <div class="gm-post-image gm-post-graident-title">
                                 <?php good_magazine_elements_image($image_size); ?>
@@ -393,7 +393,7 @@ class Grid_One extends Widget_Base {
         $args['ignore_sticky_posts'] = 1;
         $args['post_status'] = 'publish';
         $args['offset'] = $settings['posts_offset'];
-        $args['posts_per_page'] = 7;
+        $args['posts_per_page'] = 6;
         $args['post__not_in'] = $post_type == 'post' ? $settings['posts_exclude_posts'] : [];
 
         $args['tax_query'] = [];

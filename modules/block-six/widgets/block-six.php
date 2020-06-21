@@ -28,12 +28,12 @@ class Block_Six extends Widget_Base {
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Five', GME_TEXT_DOMAIN);
+        return esc_html__('Post Block Six', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'fa fa-code';
+        return 'good-mag-elements good-mag-block-six';
     }
 
     /** Category */
@@ -166,10 +166,11 @@ class Block_Six extends Widget_Base {
         );
 
         $this->add_control('excerpt_length', [
-            'label' => esc_html__('Excerpt Length', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 0
+            'default' => 0,
+            'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
         $this->end_controls_section();
@@ -210,7 +211,7 @@ class Block_Six extends Widget_Base {
             ],
                 ]
         );
-        
+
         $this->add_control(
                 'image_width', [
             'label' => esc_html__('Image Width(px)', GME_TEXT_DOMAIN),
@@ -230,6 +231,29 @@ class Block_Six extends Widget_Base {
             'selectors' => [
                 '{{WRAPPER}} .gm-post-list .gm-post-thumb' => 'min-width: {{SIZE}}{{UNIT}};',
             ],
+                ]
+        );
+
+        $this->add_control(
+                'thumb_position', [
+            'label' => esc_html__('Thumbnail Position', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'left' => esc_html__('Left', GME_TEXT_DOMAIN),
+                'right' => esc_html__('Right', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'left'
+                ]
+        );
+
+        $this->add_control(
+                'round_thumbnail', [
+            'label' => esc_html__('Round Thumbnail', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SWITCHER,
+            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
+            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
+            'return_value' => 'yes',
+            'description' => esc_html__('Set Image Height to 100% for round thumb', GME_TEXT_DOMAIN),
                 ]
         );
 
@@ -433,6 +457,7 @@ class Block_Six extends Widget_Base {
         $column_count = $settings['column_count']['size'];
         $column_count_tablet = $settings['column_count_tablet']['size'];
         $column_count_mobile = $settings['column_count_mobile']['size'];
+        $round_thumb_class = $settings['round_thumbnail'] == 'yes' ? 'gm-round-thumb' : '';
         ?>
         <div class="gm-post-block">
 
@@ -441,9 +466,10 @@ class Block_Six extends Widget_Base {
             <?php
             $args = $this->query_args();
             $post_query = new \WP_Query($args);
-            
-            if ($post_query->have_posts()) { ?>
-                <div class="gm-post-block-six gm-row gm-col-<?php echo esc_attr($column_count) ?> gm-tablet-col-<?php echo esc_attr($column_count_tablet) ?> gm-mobile-col-<?php echo esc_attr($column_count_mobile) ?>">
+
+            if ($post_query->have_posts()) {
+                ?>
+                <div class="gm-post-block-six <?php echo esc_attr($round_thumb_class); ?> gm-thumb-position-<?php echo esc_attr($settings['thumb_position']); ?> gm-row gm-col-<?php echo esc_attr($column_count) ?> gm-tablet-col-<?php echo esc_attr($column_count_tablet) ?> gm-mobile-col-<?php echo esc_attr($column_count_mobile) ?>">
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
@@ -451,20 +477,20 @@ class Block_Six extends Widget_Base {
                         $excerpt_length = $settings['excerpt_length'];
                         ?>
 
-                            <div class="gm-post-list">
-                                <?php good_magazine_elements_image($image_size); ?>
+                        <div class="gm-post-list">
+                            <?php good_magazine_elements_image($image_size); ?>
 
-                                <div class="gm-post-content">
+                            <div class="gm-post-content">
 
-                                    <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
+                                <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
 
-                                    <?php $this->get_post_meta(); ?>
+                                <?php $this->get_post_meta(); ?>
 
-                                    <?php if ($excerpt_length) { ?>
-                                        <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
-                                    <?php } ?>
-                                </div>
+                                <?php if ($excerpt_length) { ?>
+                                    <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
+                                <?php } ?>
                             </div>
+                        </div>
                         <?php
                     }
                     wp_reset_postdata();

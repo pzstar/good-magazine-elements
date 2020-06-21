@@ -33,7 +33,7 @@ class Carousel_Two extends Widget_Base {
 
     /** Icon */
     public function get_icon() {
-        return 'fa fa-code';
+        return 'good-mag-elements good-mag-carousel-one';
     }
 
     /** Category */

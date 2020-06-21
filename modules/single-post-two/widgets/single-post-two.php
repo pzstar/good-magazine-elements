@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\BlockFive\Widgets;
+namespace GoodMagazineElements\Modules\SinglePostTwo\Widgets;
 
 // Elementor Classes
 use Elementor\Widget_Base;
@@ -9,8 +9,6 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
 use Elementor\Scheme_Typography;
 use Elementor\Scheme_Color;
-use GoodMagazineElements\Group_Control_Query;
-use GoodMagazineElements\Group_Control_Header;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
@@ -19,21 +17,21 @@ if (!defined('ABSPATH')) {
 /**
  * Tiled Posts Widget
  */
-class Block_Five extends Widget_Base {
+class Single_Post_Two extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-block-five';
+        return 'gm-single-post-two';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Five', GME_TEXT_DOMAIN);
+        return esc_html__('Single Post Two', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-five';
+        return 'good-mag-elements good-mag-single-post-two';
     }
 
     /** Category */
@@ -43,20 +41,6 @@ class Block_Five extends Widget_Base {
 
     /** Controls */
     protected function _register_controls() {
-        $this->start_controls_section(
-                'header', [
-            'label' => esc_html__('Header', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_group_control(
-                Group_Control_Header::get_type(), [
-            'name' => 'header',
-            'label' => esc_html__('Header', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->end_controls_section();
 
         $this->start_controls_section(
                 'section_post_query', [
@@ -64,55 +48,12 @@ class Block_Five extends Widget_Base {
                 ]
         );
 
-        $this->add_group_control(
-                Group_Control_Query::get_type(), [
-            'name' => 'posts',
-            'label' => esc_html__('Posts', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'section_post_settings', [
-            'label' => esc_html__('Post Settings', GME_TEXT_DOMAIN),
-                ]
-        );
-
         $this->add_control(
-                'no_of_posts', [
-            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::NUMBER,
-            'min' => 1,
-            'max' => 50,
-            'default' => 6,
-                ]
-        );
-
-        $this->add_responsive_control(
-                'column_count', [
-            'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SLIDER,
-            'range' => [
-                'px' => [
-                    'min' => 1,
-                    'max' => 6,
-                    'step' => 1
-                ],
-            ],
-            'devices' => ['desktop', 'tablet', 'mobile'],
-            'desktop_default' => [
-                'size' => 2,
-                'unit' => 'px',
-            ],
-            'tablet_default' => [
-                'size' => 1,
-                'unit' => 'px',
-            ],
-            'mobile_default' => [
-                'size' => 1,
-                'unit' => 'px',
-            ],
+                'post_id', [
+            'label' => esc_html__('Select Post', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT2,
+            'options' => good_magazine_elements_get_posts(),
+            'label_block' => true
                 ]
         );
 
@@ -204,10 +145,34 @@ class Block_Five extends Widget_Base {
             ],
             'default' => [
                 'unit' => '%',
-                'size' => 60,
+                'size' => 100,
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-post-thumb .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'content_alignment', [
+            'label' => esc_html__('Content Alignment', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'left' => esc_html__('Left', GME_TEXT_DOMAIN),
+                'center' => esc_html__('Center', GME_TEXT_DOMAIN),
+                'right' => esc_html__('Right', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'left'
+                ]
+        );
+
+        $this->add_control(
+                'content_padding', [
+            'label' => esc_html__('Content Padding', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-graident-title .gm-post-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
                 ]
         );
@@ -238,51 +203,24 @@ class Block_Five extends Widget_Base {
             ]
                 ]
         );
-
+        
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'heading_style', [
-            'label' => esc_html__('Heading Text', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->add_control(
-                'heading_color', [
-            'label' => esc_html__('Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-slider h5, {{WRAPPER}} .gm-post-slider h5 a' => 'color: {{VALUE}}',
-            ],
+                'overlay_background_section', [
+            'label' => esc_html__('Overlay Background', GME_TEXT_DOMAIN),
                 ]
         );
 
         $this->add_group_control(
-                Group_Control_Typography::get_type(), [
-            'name' => 'heading_typography',
-            'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-slider h5,{{WRAPPER}} .gm-post-slider h5 a',
+                \Elementor\Group_Control_Background::get_type(), [
+            'name' => 'background',
+            'label' => __('Overlay Background', GME_TEXT_DOMAIN),
+            'types' => ['gradient'],
+            'selector' => '{{WRAPPER}} .gm-post-graident-title .gm-post-content',
                 ]
         );
-
-        $this->add_control(
-                'heading_margin', [
-            'label' => esc_html__('Margin', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::DIMENSIONS,
-            'allowed_dimensions' => 'vertical',
-            'size_units' => ['px', '%', 'em'],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-slider h5' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
-            ],
-                ]
-        );
-
+        
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -409,20 +347,19 @@ class Block_Five extends Widget_Base {
     /** Render Layout */
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $column_count = $settings['column_count']['size'];
-        $column_count_tablet = $settings['column_count_tablet']['size'];
-        $column_count_mobile = $settings['column_count_mobile']['size'];
         ?>
-        <div class="gm-post-block">
-
-            <?php $this->render_header(); ?>
+        <div class="gm-single-post">
 
             <?php
-            $args = $this->query_args();
+            $args = array(
+                'p' => $settings['post_id'],
+                'ignore_sticky_posts' => 1
+            );
             $post_query = new \WP_Query($args);
-            
-            if ($post_query->have_posts()) { ?>
-                <div class="gm-post-block-five gm-row gm-col-<?php echo esc_attr($column_count) ?> gm-tablet-col-<?php echo esc_attr($column_count_tablet) ?> gm-mobile-col-<?php echo esc_attr($column_count_mobile) ?>">
+
+            if ($settings['post_id'] && $post_query->have_posts()) {
+                ?>
+                <div class="gm-single-post-two">
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
@@ -430,20 +367,18 @@ class Block_Five extends Widget_Base {
                         $excerpt_length = $settings['excerpt_length'];
                         ?>
 
-                            <div class="gm-post-list">
-                                <?php good_magazine_elements_image($image_size); ?>
+                        <div class="gm-post-image gm-post-graident-title">
+                            <?php good_magazine_elements_image($image_size); ?>
+                            <div class="gm-post-content gm-align-<?php echo $settings['content_alignment']; ?>">
+                                <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
 
-                                <div class="gm-post-content">
+                                <?php $this->get_post_meta(); ?>
 
-                                    <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
-
-                                    <?php $this->get_post_meta(); ?>
-
-                                    <?php if ($excerpt_length) { ?>
-                                        <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
-                                    <?php } ?>
-                                </div>
+                                <?php if ($excerpt_length) { ?>
+                                    <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
+                                <?php } ?>
                             </div>
+                        </div>
                         <?php
                     }
                     wp_reset_postdata();
@@ -455,87 +390,6 @@ class Block_Five extends Widget_Base {
 
         </div>
         <?php
-    }
-
-    /** Render Header */
-    protected function render_header() {
-        $settings = $this->get_settings();
-
-        $this->add_render_attribute('header_attr', 'class', [
-            'good-magazine-post-main-header',
-                ]
-        );
-
-        $link_open = $link_close = "";
-        $target = $settings['header_link']['is_external'] ? ' target="_blank"' : '';
-        $nofollow = $settings['header_link']['nofollow'] ? ' rel="nofollow"' : '';
-
-        if ($settings['header_link']['url']) {
-            $link_open = '<a href="' . $settings['header_link']['url'] . '"' . $target . $nofollow . '>';
-            $link_close = '</a>';
-        }
-
-        if ($settings['header_title']) {
-            ?>
-            <h5 <?php echo $this->get_render_attribute_string('header_attr'); ?>>
-                <?php
-                echo $link_open;
-                echo $settings['header_title'];
-                echo $link_close;
-                ?>
-            </h5>
-            <?php
-        }
-    }
-
-    /** Query Args */
-    protected function query_args() {
-        $settings = $this->get_settings();
-
-        $post_type = $args['post_type'] = $settings['posts_post_type'];
-        $args['orderby'] = $settings['posts_orderby'];
-        $args['order'] = $settings['posts_order'];
-        $args['ignore_sticky_posts'] = 1;
-        $args['post_status'] = 'publish';
-        $args['offset'] = $settings['posts_offset'];
-        $args['posts_per_page'] = $settings['no_of_posts'];
-        $args['post__not_in'] = $post_type == 'post' ? $settings['posts_exclude_posts'] : [];
-
-        $args['tax_query'] = [];
-
-        $taxonomies = get_object_taxonomies($post_type, 'objects');
-
-        foreach ($taxonomies as $object) {
-            $setting_key = 'posts_' . $object->name . '_ids';
-
-            if (!empty($settings[$setting_key])) {
-                $args['tax_query'][] = [
-                    'taxonomy' => $object->name,
-                    'field' => 'term_id',
-                    'terms' => $settings[$setting_key],
-                ];
-            }
-        }
-
-        return $args;
-    }
-
-    /** Get Post Title */
-    protected function get_post_title() {
-        ?>
-        <h3 class="gm-post-title gm-big-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
-        <?php
-    }
-
-    /** Get Post Excerpt */
-    protected function get_post_excerpt() {
-        $settings = $this->get_settings_for_display();
-        $length = $settings['excerpt_length'];
-        if ($length) {
-            ?>
-            <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($length); ?></div>
-            <?php
-        }
     }
 
     /** Get Post Metas */

@@ -33,7 +33,7 @@ class Carousel_One extends Widget_Base {
 
     /** Icon */
     public function get_icon() {
-        return 'fa fa-code';
+        return 'good-mag-elements good-mag-carousel-one';
     }
 
     /** Category */
@@ -131,10 +131,11 @@ class Carousel_One extends Widget_Base {
         );
 
         $this->add_control('excerpt_length', [
-            'label' => esc_html__('Excerpt Length', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 100
+            'default' => 100,
+            'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
         $this->end_controls_section();
