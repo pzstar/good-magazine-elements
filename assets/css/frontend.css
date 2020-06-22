@@ -1097,10 +1097,15 @@ h3.gm-post-title.gm-small-title{
 }
 
 /* Single Post Two */
+.gm-single-post-two .gm-post-title{
+    font-size: 1.3rem;
+}
 
 /* Single Post Three*/
 .gm-single-post-three .gm-post-title{
     font-size: 1.3rem;
+    width: 80%;
+    line-height: 2.1em;
 }
 
 .gm-single-post-three .gm-post-title a{
@@ -1109,5 +1114,4 @@ h3.gm-post-title.gm-small-title{
     color: #FFF;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
-    line-height: 2em;
 }

@@ -102,7 +102,7 @@ class Block_Three extends Widget_Base {
             ],
             'default' => [
                 'unit' => '%',
-                'size' => 70,
+                'size' => 80,
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-left-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
@@ -114,7 +114,7 @@ class Block_Three extends Widget_Base {
             'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 250,
+            'default' => 300,
             'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
@@ -206,7 +206,7 @@ class Block_Three extends Widget_Base {
             ],
             'default' => [
                 'unit' => 'px',
-                'size' => 4,
+                'size' => 3,
             ],
                 ]
         );

@@ -202,15 +202,15 @@ class Carousel_Two extends Widget_Base {
             ],
             'devices' => ['desktop', 'tablet', 'mobile'],
             'desktop_default' => [
-                'size' => 20,
+                'size' => 30,
                 'unit' => 'px',
             ],
             'tablet_default' => [
-                'size' => 20,
+                'size' => 30,
                 'unit' => 'px',
             ],
             'mobile_default' => [
-                'size' => 20,
+                'size' => 30,
                 'unit' => 'px',
             ],
                 ]
@@ -249,6 +249,7 @@ class Carousel_Two extends Widget_Base {
             'label_on' => esc_html__('Show', GME_TEXT_DOMAIN),
             'label_off' => esc_html__('Hide', GME_TEXT_DOMAIN),
             'return_value' => 'yes',
+            'default' => 'yes'
                 ]
         );
 
@@ -293,7 +294,7 @@ class Carousel_Two extends Widget_Base {
             ],
             'default' => [
                 'unit' => '%',
-                'size' => 70,
+                'size' => 120,
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-post-image .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
