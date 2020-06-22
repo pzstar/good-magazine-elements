@@ -156,6 +156,37 @@ class Block_Five extends Widget_Base {
             'default' => 'yes'
                 ]
         );
+        
+        $this->add_control(
+                'date_format', [
+            'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'relative_format' => esc_html__('Relative Format (Ago)', GME_TEXT_DOMAIN),
+                'default' => esc_html__('WordPress Default Format', GME_TEXT_DOMAIN),
+                'custom' => esc_html__('Custom Format', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'default',
+            'separator' => 'before',
+            'label_block' => true,
+            'condition' => [
+                'post_date' => 'yes'
+            ]
+                ]
+        );
+
+        $this->add_control(
+                'custom_date_format', [
+            'label' => esc_html__('Custom Date Format', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::TEXT,
+            'default' => 'F j, Y',
+            'placeholder' => esc_html__('F j, Y', GME_TEXT_DOMAIN),
+            'condition' => [
+                'date_format' => 'custom',
+                'post_date' => 'yes'
+            ]
+                ]
+        );
 
         $this->end_controls_section();
 
@@ -176,8 +207,8 @@ class Block_Five extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'section_post_extra', [
-            'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
+                'section_post_image', [
+            'label' => esc_html__('Image Settings', GME_TEXT_DOMAIN),
                 ]
         );
 
@@ -192,7 +223,7 @@ class Block_Five extends Widget_Base {
 
         $this->add_control(
                 'image_height', [
-            'label' => esc_html__('Image Height(%)', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -209,33 +240,6 @@ class Block_Five extends Widget_Base {
             'selectors' => [
                 '{{WRAPPER}} .gm-post-thumb .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
             ],
-                ]
-        );
-
-        $this->add_control(
-                'date_format', [
-            'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SELECT,
-            'options' => [
-                'relative_format' => esc_html__('Relative Format (Ago)', GME_TEXT_DOMAIN),
-                'default' => esc_html__('WordPress Default Format', GME_TEXT_DOMAIN),
-                'custom' => esc_html__('Custom Format', GME_TEXT_DOMAIN),
-            ],
-            'default' => 'default',
-            'separator' => 'before',
-            'label_block' => true
-                ]
-        );
-
-        $this->add_control(
-                'custom_date_format', [
-            'label' => esc_html__('Custom Date Format', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::TEXT,
-            'default' => 'F j, Y',
-            'placeholder' => esc_html__('F j, Y', GME_TEXT_DOMAIN),
-            'condition' => [
-                'date_format' => 'custom'
-            ]
                 ]
         );
 
@@ -459,7 +463,7 @@ class Block_Five extends Widget_Base {
 
     /** Render Header */
     protected function render_header() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $this->add_render_attribute('header_attr', 'class', [
             'good-magazine-post-main-header',
@@ -490,7 +494,7 @@ class Block_Five extends Widget_Base {
 
     /** Query Args */
     protected function query_args() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $post_type = $args['post_type'] = $settings['posts_post_type'];
         $args['orderby'] = $settings['posts_orderby'];

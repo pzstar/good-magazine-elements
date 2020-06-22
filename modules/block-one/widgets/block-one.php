@@ -90,7 +90,7 @@ class Block_One extends Widget_Base {
 
         $this->add_control(
                 'featured_thumb_height', [
-            'label' => esc_html__('Image Height(%)', 'plugin-name'),
+            'label' => esc_html__('Image Height (%)', 'plugin-name'),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -194,7 +194,7 @@ class Block_One extends Widget_Base {
 
         $this->add_control(
                 'listing_thumb_height', [
-            'label' => esc_html__('Image Height(%)', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -565,7 +565,7 @@ class Block_One extends Widget_Base {
 
     /** Render Header */
     protected function render_header() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $this->add_render_attribute('header_attr', 'class', [
             'good-magazine-post-main-header',
@@ -596,7 +596,7 @@ class Block_One extends Widget_Base {
 
     /** Query Args */
     protected function query_args() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $post_type = $args['post_type'] = $settings['posts_post_type'];
         $args['orderby'] = $settings['posts_orderby'];

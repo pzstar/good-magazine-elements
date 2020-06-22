@@ -849,14 +849,10 @@ h3.gm-post-title.gm-small-title{
 }
 
 .gm-post-block-two .gm-bottom-block{
-    display: flex;
-    flex-wrap: wrap;
-    margin: 30px -15px 0;
+    margin-top: 30px;
 }
 
 .gm-post-block-two .gm-bottom-block .gm-post-list{
-    padding: 0 15px;
-    width: 50%;
     margin-bottom: 30px;
 }
 
@@ -892,6 +888,15 @@ h3.gm-post-title.gm-small-title{
     margin-bottom: 30px;
 }
 
+.gm-post-block-three .gm-left-block .gm-post-list{
+    margin-bottom: 30px;
+}
+
+.gm-post-block-three .gm-left-block .gm-post-list:last-child,
+.gm-post-block-three .gm-right-block .gm-post-list:last-child{
+    margin-bottom: 0;
+}
+
 /* Post Block Four*/
 .gm-post-block-four{
     display: flex;
@@ -920,10 +925,12 @@ h3.gm-post-title.gm-small-title{
     padding: 0 15px;
 }
 
-.gm-post-block-four .gm-right-block .gm-post-list{
+.gm-post-block-four .gm-right-block .gm-post-list,
+.gm-post-block-four .gm-left-block .gm-post-list{
     margin-bottom: 30px;
 }
 
+.gm-post-block-four .gm-left-block .gm-post-list:last-child,
 .gm-post-block-four .gm-right-block .gm-post-list:last-child{
     margin-bottom: 0;
 }
@@ -1088,8 +1095,9 @@ h3.gm-post-title.gm-small-title{
 .gm-post-6 { grid-area: 2 / 3 / 4 / 4; }
 
 /* Single Post One */
-.gm-single-post-one .gm-post-thumb {
-    margin-bottom: 20px;
+.gm-single-post-one .gm-post-content {
+    padding-top: 20px;
+    position: relative;
 }
 
 .gm-single-post-one .gm-post-excerpt{
@@ -1104,8 +1112,19 @@ h3.gm-post-title.gm-small-title{
 /* Single Post Three*/
 .gm-single-post-three .gm-post-title{
     font-size: 1.3rem;
-    width: 80%;
     line-height: 2.1em;
+}
+
+.gm-single-post-three .gm-align-left .gm-post-title{
+    padding-right: 20%
+}
+
+.gm-single-post-three .gm-align-center .gm-post-title{
+    padding: 0 10%;
+}
+
+.gm-single-post-three .gm-align-right .gm-post-title{
+    padding-left: 20%
 }
 
 .gm-single-post-three .gm-post-title a{

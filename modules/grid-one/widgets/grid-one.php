@@ -112,11 +112,42 @@ class Grid_One extends Widget_Base {
                 ]
         );
 
+        $this->add_control(
+                'date_format', [
+            'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'relative_format' => esc_html__('Relative Format (Ago)', GME_TEXT_DOMAIN),
+                'default' => esc_html__('WordPress Default Format', GME_TEXT_DOMAIN),
+                'custom' => esc_html__('Custom Format', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'default',
+            'separator' => 'before',
+            'label_block' => true,
+            'condition' => [
+                'post_date' => 'yes'
+            ]
+                ]
+        );
+
+        $this->add_control(
+                'custom_date_format', [
+            'label' => esc_html__('Custom Date Format', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::TEXT,
+            'default' => 'F j, Y',
+            'placeholder' => esc_html__('F j, Y', GME_TEXT_DOMAIN),
+            'condition' => [
+                'date_format' => 'custom',
+                'post_date' => 'yes'
+            ]
+                ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'section_post_extra', [
-            'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
+                'section_post_image', [
+            'label' => esc_html__('Image Settings', GME_TEXT_DOMAIN),
                 ]
         );
 
@@ -131,7 +162,7 @@ class Grid_One extends Widget_Base {
 
         $this->add_control(
                 'image_height', [
-            'label' => esc_html__('Image Height(%)', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -150,6 +181,28 @@ class Grid_One extends Widget_Base {
             ],
                 ]
         );
+        
+        $this->add_control(
+                'image_spacing', [
+            'label' => esc_html__('Spacing Between Image (px)', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 50,
+                    'step' => 5
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 30,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-grid-one' => 'gap: {{SIZE}}{{UNIT}};',
+            ],
+                ]
+        );
 
         $this->add_control(
                 'content_alignment', [
@@ -164,30 +217,20 @@ class Grid_One extends Widget_Base {
                 ]
         );
 
-        $this->add_control(
-                'date_format', [
-            'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SELECT,
-            'options' => [
-                'relative_format' => esc_html__('Relative Format (Ago)', GME_TEXT_DOMAIN),
-                'default' => esc_html__('WordPress Default Format', GME_TEXT_DOMAIN),
-                'custom' => esc_html__('Custom Format', GME_TEXT_DOMAIN),
-            ],
-            'default' => 'default',
-            'separator' => 'before',
-            'label_block' => true
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+                'overlay_background_section', [
+            'label' => esc_html__('Overlay Background', GME_TEXT_DOMAIN),
                 ]
         );
 
-        $this->add_control(
-                'custom_date_format', [
-            'label' => esc_html__('Custom Date Format', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::TEXT,
-            'default' => 'F j, Y',
-            'placeholder' => esc_html__('F j, Y', GME_TEXT_DOMAIN),
-            'condition' => [
-                'date_format' => 'custom'
-            ]
+        $this->add_group_control(
+                \Elementor\Group_Control_Background::get_type(), [
+            'name' => 'background',
+            'label' => __('Overlay Background', GME_TEXT_DOMAIN),
+            'types' => ['gradient'],
+            'selector' => '{{WRAPPER}} .gm-post-graident-title .gm-post-content',
                 ]
         );
 
@@ -354,7 +397,7 @@ class Grid_One extends Widget_Base {
 
     /** Render Header */
     protected function render_header() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $this->add_render_attribute('header_attr', 'class', [
             'good-magazine-post-main-header',
@@ -385,7 +428,7 @@ class Grid_One extends Widget_Base {
 
     /** Query Args */
     protected function query_args() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $post_type = $args['post_type'] = $settings['posts_post_type'];
         $args['orderby'] = $settings['posts_orderby'];

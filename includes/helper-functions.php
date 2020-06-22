@@ -213,133 +213,40 @@ if (!function_exists('good_magazine_elements_get_posts')) {
 
 }
 
-/**
- * Queries for the elements
- *
- */
-if (!function_exists('yoomag_ea_query')) {
+/** Get All Categories */
+if (!function_exists('good_magazine_elements_get_categories')) {
 
-    function yoomag_ea_query($settings, $first_id = '', $post_per_page = 4) {
+    function good_magazine_elements_get_categories() {
+        $cats = array();
 
+        $terms = get_categories(array(
+            'hide_empty' => true
+        ));
 
-        $post_type = $settings['posts_post_type'];
-        $category = '';
-        $tags = '';
-        $exclude_posts = '';
-        $post_formats = '';
-        if (get_post_format()) {
-            $post_formats = $settings['posts_post_format_ids'];
+        foreach ($terms as $term) {
+            $cats[$term->term_id] = $term->name;
         }
 
+        return $cats;
+    }
 
-        if (!empty($post_formats)) {
-            $post_formats[] = implode(",", $post_formats);
+}
+
+/** Get All Tags */
+if (!function_exists('good_magazine_elements_get_tags')) {
+
+    function good_magazine_elements_get_tags() {
+        $tags = array();
+
+        $terms = get_tags(array(
+            'hide_empty' => true
+        ));
+
+        foreach ($terms as $term) {
+            $tags[$term->term_id] = $term->name;
         }
 
-
-
-        if ('post' == $post_type) {
-
-            $category = $settings['posts_category_ids'];
-            $tags = $settings['posts_post_tag_ids'];
-            $exclude_posts = $settings['posts_exclude_posts'];
-        } elseif ('product' == $post_type) {
-
-            $category = $settings['posts_product_cat_ids'];
-            $exclude_posts = $settings['posts_exclude_posts'];
-        }
-
-        //Categories
-        $post_cat = '';
-        $post_cats = $category;
-        if (!empty($category)) {
-            asort($category);
-        }
-
-        if (!empty($post_cats)) {
-            $post_cat = implode(",", $post_cats);
-        }
-
-
-        if (!empty($first_id)) {
-            $post_cat = $category[0];
-        }
-
-
-        // Post Authors
-        $post_author = '';
-        $post_authors = $settings['posts_authors'];
-        if (!empty($post_authors)) {
-            $post_author = implode(",", $post_authors);
-        }
-
-        if ($post_formats) {
-
-            $args = array(
-                'post_type' => $post_type,
-                'post__in' => '',
-                'cat' => $post_cat,
-                'author' => $post_author,
-                'tag__in' => $tags,
-                'orderby' => $settings['posts_orderby'],
-                'order' => $settings['posts_order'],
-                'post__not_in' => $exclude_posts,
-                'offset' => $settings['posts_offset'],
-                'ignore_sticky_posts' => 1,
-                'posts_per_page' => $post_per_page,
-                'tax_query' => array(
-                    array(
-                        'taxonomy' => 'post_format',
-                        'field' => 'slug',
-                        'terms' => $post_formats,
-                        'operator' => 'IN',
-                    ),
-                ),
-            );
-        } else {
-
-            $args = array(
-                'post_status' => array('publish'),
-                'post_type' => $post_type,
-                'post__in' => '',
-                'cat' => $post_cat,
-                'author' => $post_author,
-                'tag__in' => $tags,
-                'orderby' => $settings['posts_orderby'],
-                'order' => $settings['posts_order'],
-                'post__not_in' => $exclude_posts,
-                'offset' => $settings['posts_offset'],
-                'ignore_sticky_posts' => 1,
-                'posts_per_page' => $post_per_page
-            );
-        }
-
-        if ('product' == $post_type) {
-
-            $args = array(
-                'post_type' => 'product',
-                'post__in' => '',
-                'orderby' => $settings['posts_orderby'],
-                'order' => $settings['posts_order'],
-                'author' => $post_author,
-                'posts_per_page' => $post_per_page,
-                'post__not_in' => $exclude_posts,
-                'offset' => $settings['posts_offset'],
-            );
-
-            if ($post_cat) {
-                $args['tax_query'] = array(
-                    array(
-                        'taxonomy' => 'product_cat',
-                        'field' => 'term_id',
-                        'terms' => $post_cat
-                    )
-                );
-            }
-        }
-
-
-        return $args;
+        return $tags;
     }
 
 }

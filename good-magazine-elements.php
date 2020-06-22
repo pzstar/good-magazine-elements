@@ -121,11 +121,11 @@ if (!class_exists('Good_Magazine_Elements')) {
             require( GME_PATH . 'includes/helper-functions.php' );
             require( GME_PATH . 'includes/ajax-functions.php' );
 
-            if ('yes' !== get_option(elementor_disable_color_schemes)) {
+            if ('yes' !== get_option('elementor_disable_color_schemes')) {
                 update_option('elementor_disable_color_schemes', 'yes');
             }
 
-            if ('yes' !== get_option(elementor_disable_typography_schemes)) {
+            if ('yes' !== get_option('elementor_disable_typography_schemes')) {
                 update_option('elementor_disable_typography_schemes', 'yes');
             }
         }

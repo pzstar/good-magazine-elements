@@ -49,11 +49,57 @@ class Single_Post_One extends Widget_Base {
         );
 
         $this->add_control(
+                'filter_option', [
+            'label' => esc_html__('Select Filter', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => array(
+                'single-post' => esc_html__('By Post Title', GME_TEXT_DOMAIN),
+                'categories' => esc_html__('By Categories', GME_TEXT_DOMAIN),
+                'tags' => esc_html__('By Tags', GME_TEXT_DOMAIN),
+            ),
+            'default' => 'categories',
+            'label_block' => true,
+            'description' => esc_html__('Displays only one post', GME_TEXT_DOMAIN)
+                ]
+        );
+
+        $this->add_control(
                 'post_id', [
             'label' => esc_html__('Select Post', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SELECT2,
             'options' => good_magazine_elements_get_posts(),
-            'label_block' => true
+            'label_block' => true,
+            'condition' => [
+                'filter_option' => 'single-post'
+            ]
+                ]
+        );
+
+        $this->add_control(
+                'categories', [
+            'label' => esc_html__('Select Categories', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT2,
+            'options' => good_magazine_elements_get_categories(),
+            'label_block' => true,
+            'multiple' => true,
+            'condition' => [
+                'filter_option' => 'categories'
+            ],
+            'description' => esc_html__('Displays latest post from the selected categories', GME_TEXT_DOMAIN)
+                ]
+        );
+
+        $this->add_control(
+                'tags', [
+            'label' => esc_html__('Select Tags', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT2,
+            'options' => good_magazine_elements_get_tags(),
+            'multiple' => true,
+            'label_block' => true,
+            'condition' => [
+                'filter_option' => 'tags'
+            ],
+            'description' => esc_html__('Displays latest post from the selected tags', GME_TEXT_DOMAIN)
                 ]
         );
 
@@ -98,6 +144,37 @@ class Single_Post_One extends Widget_Base {
                 ]
         );
 
+        $this->add_control(
+                'date_format', [
+            'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'relative_format' => esc_html__('Relative Format (Ago)', GME_TEXT_DOMAIN),
+                'default' => esc_html__('WordPress Default Format', GME_TEXT_DOMAIN),
+                'custom' => esc_html__('Custom Format', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'default',
+            'separator' => 'before',
+            'label_block' => true,
+            'condition' => [
+                'post_date' => 'yes'
+            ]
+                ]
+        );
+
+        $this->add_control(
+                'custom_date_format', [
+            'label' => esc_html__('Custom Date Format', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::TEXT,
+            'default' => 'F j, Y',
+            'placeholder' => esc_html__('F j, Y', GME_TEXT_DOMAIN),
+            'condition' => [
+                'date_format' => 'custom',
+                'post_date' => 'yes'
+            ]
+                ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -117,8 +194,8 @@ class Single_Post_One extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'section_post_extra', [
-            'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
+                'section_post_image', [
+            'label' => esc_html__('Image Settings', GME_TEXT_DOMAIN),
                 ]
         );
 
@@ -133,7 +210,7 @@ class Single_Post_One extends Widget_Base {
 
         $this->add_control(
                 'image_height', [
-            'label' => esc_html__('Image Height(%)', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -145,7 +222,7 @@ class Single_Post_One extends Widget_Base {
             ],
             'default' => [
                 'unit' => '%',
-                'size' => 60,
+                'size' => 80,
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-post-thumb .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
@@ -166,30 +243,48 @@ class Single_Post_One extends Widget_Base {
                 ]
         );
 
-        $this->add_control(
-                'date_format', [
-            'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SELECT,
-            'options' => [
-                'relative_format' => esc_html__('Relative Format (Ago)', GME_TEXT_DOMAIN),
-                'default' => esc_html__('WordPress Default Format', GME_TEXT_DOMAIN),
-                'custom' => esc_html__('Custom Format', GME_TEXT_DOMAIN),
-            ],
-            'default' => 'default',
-            'separator' => 'before',
-            'label_block' => true
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+                'content_style', [
+            'label' => esc_html__('Content', GME_TEXT_DOMAIN),
+            'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
 
         $this->add_control(
-                'custom_date_format', [
-            'label' => esc_html__('Custom Date Format', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::TEXT,
-            'default' => 'F j, Y',
-            'placeholder' => esc_html__('F j, Y', GME_TEXT_DOMAIN),
-            'condition' => [
-                'date_format' => 'custom'
-            ]
+                'content_bg', [
+            'label' => esc_html__('Backgorund', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-content' => 'background-color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'content_padding', [
+            'label' => esc_html__('Content Padding', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'content_margin', [
+            'label' => esc_html__('Content Padding', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
                 ]
         );
 
@@ -240,6 +335,50 @@ class Single_Post_One extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
+                'meta_style', [
+            'label' => esc_html__('Post Metas', GME_TEXT_DOMAIN),
+            'tab' => Controls_Manager::TAB_STYLE,
+                ]
+        );
+
+        $this->add_control(
+                'meta_color', [
+            'label' => esc_html__('Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-meta span' => 'color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_group_control(
+                Group_Control_Typography::get_type(), [
+            'name' => 'meta_typography',
+            'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
+            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+            'selector' => '{{WRAPPER}} .gm-post-meta span',
+                ]
+        );
+
+        $this->add_control(
+                'meta_margin', [
+            'label' => esc_html__('Margin', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'allowed_dimensions' => 'vertical',
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-meta' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+            ],
+                ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
                 'excerpt_style', [
             'label' => esc_html__('Post Excerpt', GME_TEXT_DOMAIN),
             'tab' => Controls_Manager::TAB_STYLE,
@@ -282,38 +421,6 @@ class Single_Post_One extends Widget_Base {
         );
 
         $this->end_controls_section();
-
-        $this->start_controls_section(
-                'meta_style', [
-            'label' => esc_html__('Post Metas', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->add_control(
-                'meta_color', [
-            'label' => esc_html__('Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-meta span' => 'color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_group_control(
-                Group_Control_Typography::get_type(), [
-            'name' => 'meta_typography',
-            'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-meta span',
-                ]
-        );
-
-        $this->end_controls_section();
     }
 
     /** Render Layout */
@@ -323,13 +430,10 @@ class Single_Post_One extends Widget_Base {
         <div class="gm-single-post">
 
             <?php
-            $args = array(
-                'p' => $settings['post_id'],
-                'ignore_sticky_posts' => 1
-            );
+            $args = $this->query_args();
             $post_query = new \WP_Query($args);
 
-            if ($settings['post_id'] && $post_query->have_posts()) {
+            if ($post_query->have_posts()) {
                 ?>
                 <div class="gm-single-post-one">
                     <?php
@@ -399,6 +503,40 @@ class Single_Post_One extends Widget_Base {
             </div>
             <?php
         }
+    }
+
+    /** Query Args */
+    protected function query_args() {
+        $settings = $this->get_settings_for_display();
+
+        $filter_option = $settings['filter_option'];
+        if ($filter_option == 'single-post') {
+            if (!empty($settings['post_id'])) {
+                $args['p'] = $settings['post_id'];
+            }
+        } elseif ($filter_option == 'categories') {
+            if (!empty($settings['categories'])) {
+                $args['tax_query'][] = [
+                    'taxonomy' => 'category',
+                    'field' => 'term_id',
+                    'terms' => $settings['categories'],
+                ];
+            }
+        } elseif ($filter_option == 'tags') {
+            if (!empty($settings['tags'])) {
+                $args['tax_query'][] = [
+                    'taxonomy' => 'post_tag',
+                    'field' => 'term_id',
+                    'terms' => $settings['tags'],
+                ];
+            }
+        }
+
+        $args['ignore_sticky_posts'] = 1;
+        $args['post_status'] = 'publish';
+        $args['posts_per_page'] = 1;
+
+        return $args;
     }
 
 }

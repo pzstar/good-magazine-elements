@@ -79,6 +79,26 @@ class Block_Three extends Widget_Base {
                 ]
         );
 
+        $this->add_control(
+                'featured_post_count', [
+            'label' => esc_html__('No of Posts', 'plugin-name'),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['%'],
+            'range' => [
+                '%' => [
+                    'min' => 1,
+                    'max' => 5,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => '%',
+                'size' => 1,
+            ],
+            'separator' => 'after'
+                ]
+        );
+
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'featured_post_image',
@@ -90,7 +110,7 @@ class Block_Three extends Widget_Base {
 
         $this->add_control(
                 'featured_thumb_height', [
-            'label' => esc_html__('Image Height(%)', 'plugin-name'),
+            'label' => esc_html__('Image Height (%)', 'plugin-name'),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -161,6 +181,26 @@ class Block_Three extends Widget_Base {
                 ]
         );
 
+        $this->add_control(
+                'listing_post_count', [
+            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 2,
+                    'max' => 15,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 3,
+            ],
+            'separator' => 'after'
+                ]
+        );
+
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'list_post_image',
@@ -172,7 +212,7 @@ class Block_Three extends Widget_Base {
 
         $this->add_control(
                 'listing_thumb_height', [
-            'label' => esc_html__('Image Height(%)', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -188,25 +228,6 @@ class Block_Three extends Widget_Base {
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-right-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'listing_post_count', [
-            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['px'],
-            'range' => [
-                'px' => [
-                    'min' => 1,
-                    'max' => 10,
-                    'step' => 1
-                ],
-            ],
-            'default' => [
-                'unit' => 'px',
-                'size' => 3,
             ],
                 ]
         );
@@ -252,7 +273,7 @@ class Block_Three extends Widget_Base {
         );
 
         $this->end_controls_section();
-        
+
         $this->start_controls_section(
                 'additional_settings', [
             'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
@@ -476,6 +497,7 @@ class Block_Three extends Widget_Base {
     /** Render Layout */
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $featured_post_count = $settings['featured_post_count']['size'];
         ?>
         <div class="gm-post-block">
 
@@ -494,8 +516,9 @@ class Block_Three extends Widget_Base {
                         $post_query->the_post();
                         $current_post_count = $post_query->current_post + 1;
                         $total_post_count = $post_query->post_count;
-                        $image_size = ( $current_post_count == 1 ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
-                        $title_class = ( $current_post_count == 1 ) ? ' gm-big-title' : '';
+
+                        $image_size = ( $current_post_count <= $featured_post_count ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
+                        $title_class = ( $current_post_count <= $featured_post_count ) ? ' gm-big-title' : '';
                         ?>
                         <?php if ($current_post_count == 1) { ?>
                             <div class="gm-left-block">
@@ -514,17 +537,17 @@ class Block_Three extends Widget_Base {
                                 </div>
                             </div>
 
-                            <?php if ($current_post_count == 1) { ?>
+                            <?php if (($total_post_count < $featured_post_count && $total_post_count == $current_post_count) || $current_post_count == $featured_post_count) { ?>
                             </div>
 
-                            <?php if ($total_post_count > 1) { ?>
+                            <?php if ($total_post_count > $featured_post_count) { ?>
                                 <div class="gm-right-block">
                                     <?php
                                 }
                             }
                             ?>
 
-                            <?php if ($total_post_count > 1 && $total_post_count == $current_post_count) { ?>
+                            <?php if ($total_post_count > $featured_post_count && $total_post_count == $current_post_count) { ?>
                             </div>
                         <?php } ?>
                         <?php
@@ -543,7 +566,7 @@ class Block_Three extends Widget_Base {
 
     /** Render Header */
     protected function render_header() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $this->add_render_attribute('header_attr', 'class', [
             'good-magazine-post-main-header',
@@ -574,7 +597,7 @@ class Block_Three extends Widget_Base {
 
     /** Query Args */
     protected function query_args() {
-        $settings = $this->get_settings();
+        $settings = $this->get_settings_for_display();
 
         $post_type = $args['post_type'] = $settings['posts_post_type'];
         $args['orderby'] = $settings['posts_orderby'];
@@ -582,7 +605,7 @@ class Block_Three extends Widget_Base {
         $args['ignore_sticky_posts'] = 1;
         $args['post_status'] = 'publish';
         $args['offset'] = $settings['posts_offset'];
-        $args['posts_per_page'] = (int) $settings['listing_post_count']['size'] + 1;
+        $args['posts_per_page'] = (int) $settings['listing_post_count']['size'] + (int) $settings['featured_post_count']['size'];
         $args['post__not_in'] = $post_type == 'post' ? $settings['posts_exclude_posts'] : [];
 
         $args['tax_query'] = [];
@@ -607,7 +630,9 @@ class Block_Three extends Widget_Base {
     /** Get Post Excerpt */
     protected function get_post_excerpt($count) {
         $settings = $this->get_settings_for_display();
-        $excerpt_length = $count == 1 ? $settings['featured_excerpt_length'] : $settings['listing_excerpt_length'];
+        $featured_post_count = $settings['featured_post_count']['size'];
+        $settings = $this->get_settings_for_display();
+        $excerpt_length = $count <= $featured_post_count ? $settings['featured_excerpt_length'] : $settings['listing_excerpt_length'];
         if ($excerpt_length) {
             ?>
             <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
@@ -618,9 +643,10 @@ class Block_Three extends Widget_Base {
     /** Get Post Metas */
     protected function get_post_meta($count) {
         $settings = $this->get_settings_for_display();
-        $post_author = $count == 1 ? $settings['featured_post_author'] : $settings['listing_post_author'];
-        $post_date = $count == 1 ? $settings['featured_post_date'] : $settings['listing_post_date'];
-        $post_comment = $count == 1 ? $settings['featured_post_comment'] : $settings['listing_post_comment'];
+        $featured_post_count = $settings['featured_post_count']['size'];
+        $post_author = $count <= $featured_post_count ? $settings['featured_post_author'] : $settings['listing_post_author'];
+        $post_date = $count <= $featured_post_count ? $settings['featured_post_date'] : $settings['listing_post_date'];
+        $post_comment = $count <= $featured_post_count ? $settings['featured_post_comment'] : $settings['listing_post_comment'];
 
         if ($post_author == 'yes' || $post_date == 'yes' || $post_comment == 'yes') {
             ?>
