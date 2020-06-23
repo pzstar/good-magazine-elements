@@ -39,6 +39,9 @@ final class GME_Modules_Manager {
             'carousel-one',
             'carousel-two',
             'grid-one',
+            'grid-two',
+            'grid-three',
+            'grid-four',
             'single-post-one',
             'single-post-two',
             'single-post-three'

@@ -1082,17 +1082,68 @@ h3.gm-post-title.gm-small-title{
     gap: 30px 30px;
 }
 
-.gm-post-1 { grid-area: 1 / 1 / 2 / 2; }
+.gm-post-grid-one .gm-post-1 { grid-area: 1 / 1 / 2 / 2; }
 
-.gm-post-2 { grid-area: 2 / 1 / 4 / 2; }
+.gm-post-grid-one .gm-post-2 { grid-area: 2 / 1 / 4 / 2; }
 
-.gm-post-3 { grid-area: 1 / 2 / 3 / 3; }
+.gm-post-grid-one .gm-post-3 { grid-area: 1 / 2 / 3 / 3; }
 
-.gm-post-4 { grid-area: 3 / 2 / 4 / 3; }
+.gm-post-grid-one .gm-post-4 { grid-area: 3 / 2 / 4 / 3; }
 
-.gm-post-5 { grid-area: 1 / 3 / 2 / 4; }
+.gm-post-grid-one .gm-post-5 { grid-area: 1 / 3 / 2 / 4; }
 
-.gm-post-6 { grid-area: 2 / 3 / 4 / 4; }
+.gm-post-grid-one .gm-post-6 { grid-area: 2 / 3 / 4 / 4; }
+
+/* Post Grid Two */
+.gm-post-grid-two .gm-post-image,
+.gm-post-grid-two .gm-post-image .gm-post-thumb,
+.gm-post-grid-two .gm-post-image .gm-post-thumb a,
+.gm-post-grid-two .gm-post-image .gm-post-thumb .gm-post-thumb-container{
+    height: 100%;
+}
+
+.gm-post-grid-two {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.gm-post-grid-two .gm-post-1 { grid-area: 1 / 1 / 3 / 2; }
+
+.gm-post-grid-two .gm-post-2 { grid-area: 1 / 2 / 2 / 3; }
+
+.gm-post-grid-two .gm-post-3 { grid-area: 2 / 2 / 3 / 3; }
+
+.gm-post-grid-two .gm-post-4 { grid-area: 1 / 3 / 3 / 4; }
+
+/* Post Grid Four */
+.gm-post-grid-four .gm-post-image,
+.gm-post-grid-four .gm-post-image .gm-post-thumb,
+.gm-post-grid-four .gm-post-image .gm-post-thumb a,
+.gm-post-grid-four .gm-post-image .gm-post-thumb .gm-post-thumb-container{
+    height: 100%;
+}
+
+.gm-post-grid-four {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.gm-post-grid-four .gm-post-1 { grid-area: 1 / 1 / 3 / 3; }
+
+.gm-post-grid-four .gm-post-2 { grid-area: 1 / 3 / 2 / 4; }
+
+.gm-post-grid-four .gm-post-3 { grid-area: 2 / 3 / 3 / 4; }
+
+.gm-post-grid-four .gm-post-4 { grid-area: 3 / 1 / 4 / 2; }
+
+.gm-post-grid-four .gm-post-5 { grid-area: 3 / 2 / 4 / 3; }
+
+.gm-post-grid-four .gm-post-6 { grid-area: 3 / 3 / 4 / 4; }
+
 
 /* Single Post One */
 .gm-single-post-one .gm-post-content {
