@@ -181,7 +181,7 @@ class Grid_Four extends Widget_Base {
             ],
                 ]
         );
-        
+
         $this->add_control(
                 'image_spacing', [
             'label' => esc_html__('Spacing Between Image (px)', GME_TEXT_DOMAIN),
@@ -461,7 +461,7 @@ class Grid_Four extends Widget_Base {
     /** Get Post Title */
     protected function get_post_title() {
         ?>
-        <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html(get_the_title()); ?></a></h3>
+        <h3 class="gm-post-title"><a href="<?php the_permalink(); ?>"><span><?php echo esc_html(get_the_title()); ?></span></a></h3>
         <?php
     }
 

@@ -104,6 +104,18 @@ class Single_Post_Three extends Widget_Base {
             'description' => esc_html__('Displays latest post from the selected tags', GME_TEXT_DOMAIN)
                 ]
         );
+        
+        $this->add_control(
+                'offset', [
+            'label' => esc_html__('Offset', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::NUMBER,
+            'min' => 1,
+            'max' => 50,
+            'condition' => [
+                'filter_option' => ['categories', 'tags']
+            ],
+                ]
+        );
 
         $this->end_controls_section();
 
@@ -512,6 +524,10 @@ class Single_Post_Three extends Widget_Base {
                     'terms' => $settings['tags'],
                 ];
             }
+        }
+        
+        if ($settings['offset']) {
+            $args['offset'] = $settings['offset'];
         }
 
         $args['ignore_sticky_posts'] = 1;

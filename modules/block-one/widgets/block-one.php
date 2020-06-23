@@ -79,6 +79,27 @@ class Block_One extends Widget_Base {
                 ]
         );
 
+        $this->add_control(
+                'featured_post_count', [
+            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 5,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 1,
+            ],
+            'separator' => 'after'
+                ]
+        );
+
+
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'featured_post_image',
@@ -161,12 +182,44 @@ class Block_One extends Widget_Base {
                 ]
         );
 
+        $this->add_control(
+                'listing_post_count', [
+            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 20,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 4,
+            ],
+            'separator' => 'after'
+                ]
+        );
+
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'list_post_image',
             'exclude' => ['custom'],
             'include' => [],
             'default' => 'large',
+                ]
+        );
+
+        $this->add_control(
+                'listing_thumb_position', [
+            'label' => esc_html__('Thumbnail Position', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'left' => esc_html__('Left', GME_TEXT_DOMAIN),
+                'right' => esc_html__('Right', GME_TEXT_DOMAIN),
+            ],
+            'default' => 'left'
                 ]
         );
 
@@ -210,25 +263,6 @@ class Block_One extends Widget_Base {
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-right-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
-            ],
-                ]
-        );
-
-        $this->add_control(
-                'listing_post_count', [
-            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['px'],
-            'range' => [
-                'px' => [
-                    'min' => 1,
-                    'max' => 10,
-                    'step' => 1
-                ],
-            ],
-            'default' => [
-                'unit' => 'px',
-                'size' => 4,
             ],
                 ]
         );
@@ -278,6 +312,66 @@ class Block_One extends Widget_Base {
         $this->start_controls_section(
                 'additional_settings', [
             'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
+                ]
+        );
+
+        $this->add_responsive_control(
+                'layout_col', [
+            'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 3,
+                ],
+            ],
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
+                'size' => 2,
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'listing_post_count_tablet', [
+            'label' => esc_html__('No of Listing Post to Display in Tablet', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 20,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 0,
+            ],
+            'conditions' => [
+                'relation' => 'and',
+                'terms' => [
+                    [
+                        'name' => 'layout_col[size]',
+                        'operator' => '==',
+                        'value' => 3
+                    ],
+                    [
+                        'name' => 'layout_col_tablet[size]',
+                        'operator' => '==',
+                        'value' => 2
+                    ]
+                ]
+            ],
                 ]
         );
 
@@ -446,7 +540,7 @@ class Block_One extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-left-block .gm-post-excerpt' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-post-block-one .gm-post-excerpt' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -456,7 +550,7 @@ class Block_One extends Widget_Base {
             'name' => 'excerpt_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-one .gm-left-block .gm-post-excerpt',
+            'selector' => '{{WRAPPER}} .gm-post-block-one .gm-post-excerpt',
                 ]
         );
 
@@ -498,6 +592,19 @@ class Block_One extends Widget_Base {
     /** Render Layout */
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $featured_post_count = $settings['featured_post_count']['size'];
+        $listing_thumb_position = $settings['listing_thumb_position'];
+        $listing_post_count_tablet = $settings['listing_post_count_tablet']['size'];
+        $hide_after_post_count = (int) $featured_post_count + (int) $listing_post_count_tablet;
+        
+        $this->add_render_attribute('gm-post-block-one', 'class', [
+            'gm-post-block-one',
+            'gm-pbo-col-' . $settings['layout_col']['size'],
+            'gm-pbo-tablet-col-' . $settings['layout_col_tablet']['size'],
+            'gm-pbo-mobile-col-' . $settings['layout_col_mobile']['size']
+                ]
+        );
+        
         ?>
         <div class="gm-post-block">
 
@@ -510,20 +617,21 @@ class Block_One extends Widget_Base {
             ?>
 
             <?php if ($post_query->have_posts()) { ?>
-                <div class="gm-post-block-one">
+                <div <?php echo $this->get_render_attribute_string('gm-post-block-one'); ?>>
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
                         $current_post_count = $post_query->current_post + 1;
                         $total_post_count = $post_query->post_count;
-                        $image_size = ( $current_post_count == 1 ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
-                        $title_class = ( $current_post_count == 1 ) ? ' gm-big-title' : '';
+                        $image_size = ( $current_post_count <= $featured_post_count ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
+                        $title_class = ( $current_post_count <= $featured_post_count ) ? ' gm-big-title' : '';
+                        $post_list_class = $current_post_count > $hide_after_post_count ? 'gm-tablet-hide' : '';
                         ?>
                         <?php if ($current_post_count == 1) { ?>
                             <div class="gm-left-block">
                             <?php }; ?>
 
-                            <div class="gm-post-list">
+                            <div class="gm-post-list <?php echo esc_attr($post_list_class); ?>">
                                 <?php good_magazine_elements_image($image_size); ?>
 
                                 <div class="gm-post-content">
@@ -536,17 +644,17 @@ class Block_One extends Widget_Base {
                                 </div>
                             </div>
 
-                            <?php if ($current_post_count == 1) { ?>
+                            <?php if (($total_post_count < $featured_post_count && $total_post_count == $current_post_count) || $current_post_count == $featured_post_count) { ?>
                             </div>
 
-                            <?php if ($total_post_count > 1) { ?>
-                                <div class="gm-right-block">
+                            <?php if ($total_post_count > $featured_post_count) { ?>
+                                <div class="gm-right-block gm-thumb-position-<?php echo esc_attr($listing_thumb_position); ?>">
                                     <?php
                                 }
                             }
                             ?>
 
-                            <?php if ($total_post_count > 1 && $total_post_count == $current_post_count) { ?>
+                            <?php if ($total_post_count > $featured_post_count && $total_post_count == $current_post_count) { ?>
                             </div>
                         <?php } ?>
                         <?php
@@ -604,7 +712,7 @@ class Block_One extends Widget_Base {
         $args['ignore_sticky_posts'] = 1;
         $args['post_status'] = 'publish';
         $args['offset'] = $settings['posts_offset'];
-        $args['posts_per_page'] = (int) $settings['listing_post_count']['size'] + 1;
+        $args['posts_per_page'] = (int) $settings['listing_post_count']['size'] + (int) $settings['featured_post_count']['size'];
         $args['post__not_in'] = $post_type == 'post' ? $settings['posts_exclude_posts'] : [];
 
         $args['tax_query'] = [];
@@ -629,7 +737,9 @@ class Block_One extends Widget_Base {
     /** Get Post Excerpt */
     protected function get_post_excerpt($count) {
         $settings = $this->get_settings_for_display();
-        $excerpt_length = $count == 1 ? $settings['featured_excerpt_length'] : $settings['listing_excerpt_length'];
+        $featured_post_count = $settings['featured_post_count']['size'];
+
+        $excerpt_length = $count <= $featured_post_count ? $settings['featured_excerpt_length'] : $settings['listing_excerpt_length'];
         if ($excerpt_length) {
             ?>
             <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
@@ -640,9 +750,10 @@ class Block_One extends Widget_Base {
     /** Get Post Metas */
     protected function get_post_meta($count) {
         $settings = $this->get_settings_for_display();
-        $post_author = $count == 1 ? $settings['featured_post_author'] : $settings['listing_post_author'];
-        $post_date = $count == 1 ? $settings['featured_post_date'] : $settings['listing_post_date'];
-        $post_comment = $count == 1 ? $settings['featured_post_comment'] : $settings['listing_post_comment'];
+        $featured_post_count = $settings['featured_post_count']['size'];
+        $post_author = $count <= $featured_post_count ? $settings['featured_post_author'] : $settings['listing_post_author'];
+        $post_date = $count <= $featured_post_count ? $settings['featured_post_date'] : $settings['listing_post_date'];
+        $post_comment = $count <= $featured_post_count ? $settings['featured_post_comment'] : $settings['listing_post_comment'];
 
         if ($post_author == 'yes' || $post_date == 'yes' || $post_comment == 'yes') {
             ?>

@@ -279,6 +279,66 @@ class Block_Three extends Widget_Base {
             'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
                 ]
         );
+        
+        $this->add_responsive_control(
+                'layout_col', [
+            'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 3,
+                ],
+            ],
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
+                'size' => 2,
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'listing_post_count_tablet', [
+            'label' => esc_html__('No of Listing Post to Display in Tablet', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 20,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 0,
+            ],
+            'conditions' => [
+                'relation' => 'and',
+                'terms' => [
+                    [
+                        'name' => 'layout_col[size]',
+                        'operator' => '==',
+                        'value' => 3
+                    ],
+                    [
+                        'name' => 'layout_col_tablet[size]',
+                        'operator' => '==',
+                        'value' => 2
+                    ]
+                ]
+            ],
+                ]
+        );
 
         $this->add_control(
                 'date_format', [
@@ -498,6 +558,16 @@ class Block_Three extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         $featured_post_count = $settings['featured_post_count']['size'];
+        $listing_post_count_tablet = $settings['listing_post_count_tablet']['size'];
+        $hide_after_post_count = (int) $featured_post_count + (int) $listing_post_count_tablet;
+        
+        $this->add_render_attribute('gm-post-block-three', 'class', [
+            'gm-post-block-three',
+            'gm-pbt-col-' . $settings['layout_col']['size'],
+            'gm-pbt-tablet-col-' . $settings['layout_col_tablet']['size'],
+            'gm-pbt-mobile-col-' . $settings['layout_col_mobile']['size']
+                ]
+        );
         ?>
         <div class="gm-post-block">
 
@@ -510,7 +580,7 @@ class Block_Three extends Widget_Base {
             ?>
 
             <?php if ($post_query->have_posts()) { ?>
-                <div class="gm-post-block-three">
+                <div <?php echo $this->get_render_attribute_string('gm-post-block-three'); ?>>
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
@@ -519,12 +589,13 @@ class Block_Three extends Widget_Base {
 
                         $image_size = ( $current_post_count <= $featured_post_count ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
                         $title_class = ( $current_post_count <= $featured_post_count ) ? ' gm-big-title' : '';
+                        $post_list_class = $current_post_count > $hide_after_post_count ? 'gm-tablet-hide' : '';
                         ?>
                         <?php if ($current_post_count == 1) { ?>
                             <div class="gm-left-block">
                             <?php }; ?>
 
-                            <div class="gm-post-list">
+                            <div class="gm-post-list <?php echo esc_attr($post_list_class); ?>">
                                 <?php good_magazine_elements_image($image_size); ?>
 
                                 <div class="gm-post-content">
