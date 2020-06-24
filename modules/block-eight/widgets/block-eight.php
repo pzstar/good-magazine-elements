@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\BlockThree\Widgets;
+namespace GoodMagazineElements\Modules\BlockEight\Widgets;
 
 // Elementor Classes
 use Elementor\Widget_Base;
@@ -11,6 +11,7 @@ use Elementor\Scheme_Typography;
 use Elementor\Scheme_Color;
 use GoodMagazineElements\Group_Control_Query;
 use GoodMagazineElements\Group_Control_Header;
+use GoodMagazineElements\Group_Control_Meta;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
@@ -19,21 +20,21 @@ if (!defined('ABSPATH')) {
 /**
  * Tiled Posts Widget
  */
-class Block_Three extends Widget_Base {
+class Block_Eight extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-block-three';
+        return 'good-magazine-block-eight';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Three', GME_TEXT_DOMAIN);
+        return esc_html__('Post Block Eight', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-three';
+        return 'good-mag-elements good-mag-block-seven';
     }
 
     /** Category */
@@ -74,145 +75,21 @@ class Block_Three extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'section_featured_block', [
-            'label' => esc_html__('Featured Block', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_control(
-                'featured_post_count', [
-            'label' => esc_html__('No of Posts', 'plugin-name'),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['%'],
-            'range' => [
-                '%' => [
-                    'min' => 1,
-                    'max' => 5,
-                    'step' => 1
-                ],
-            ],
-            'default' => [
-                'unit' => '%',
-                'size' => 1,
-            ],
-            'separator' => 'after'
+                'section_top_block', [
+            'label' => esc_html__('Top Block Settings', GME_TEXT_DOMAIN),
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Image_Size::get_type(), [
-            'name' => 'featured_post_image',
-            'exclude' => ['custom'],
-            'include' => [],
-            'default' => 'large',
+            'name' => 'top_thumb_image',
+            'default' => 'large'
                 ]
         );
 
         $this->add_control(
-                'featured_thumb_height', [
+                'top_thumb_height', [
             'label' => esc_html__('Image Height (%)', 'plugin-name'),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['%'],
-            'range' => [
-                '%' => [
-                    'min' => 30,
-                    'max' => 150,
-                    'step' => 1
-                ],
-            ],
-            'default' => [
-                'unit' => '%',
-                'size' => 80,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-left-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
-            ],
-                ]
-        );
-
-        $this->add_control('featured_excerpt_length', [
-            'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::NUMBER,
-            'min' => 0,
-            'default' => 300,
-            'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
-        ]);
-
-        $this->add_control(
-                'featured_post_author', [
-            'label' => esc_html__('Post Author', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SWITCHER,
-            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
-            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
-            'return_value' => 'yes',
-            'separator' => 'before',
-            'default' => 'yes'
-                ]
-        );
-
-        $this->add_control(
-                'featured_post_date', [
-            'label' => esc_html__('Post Date', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SWITCHER,
-            'default' => 'yes',
-            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
-            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
-            'return_value' => 'yes',
-            'default' => 'yes'
-                ]
-        );
-
-        $this->add_control(
-                'featured_post_comment', [
-            'label' => esc_html__('Post Comments', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SWITCHER,
-            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
-            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
-            'return_value' => 'yes',
-            'default' => 'yes'
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'section_listing_block', [
-            'label' => esc_html__('Listing Block', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_control(
-                'listing_post_count', [
-            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['px'],
-            'range' => [
-                'px' => [
-                    'min' => 2,
-                    'max' => 15,
-                    'step' => 1
-                ],
-            ],
-            'default' => [
-                'unit' => 'px',
-                'size' => 3,
-            ],
-            'separator' => 'after'
-                ]
-        );
-
-        $this->add_group_control(
-                Group_Control_Image_Size::get_type(), [
-            'name' => 'list_post_image',
-            'exclude' => ['custom'],
-            'include' => [],
-            'default' => 'large',
-                ]
-        );
-
-        $this->add_control(
-                'listing_thumb_height', [
-            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['%'],
             'range' => [
@@ -227,23 +104,24 @@ class Block_Three extends Widget_Base {
                 'size' => 70,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-right-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .gm-top-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
             ],
                 ]
         );
 
-        $this->add_control('listing_excerpt_length', [
+        $this->add_control('top_excerpt_length', [
             'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 0,
+            'default' => 300,
             'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
         $this->add_control(
-                'listing_post_author', [
+                'top_post_author', [
             'label' => esc_html__('Post Author', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SWITCHER,
+            'default' => 'yes',
             'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
             'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
             'return_value' => 'yes',
@@ -252,7 +130,7 @@ class Block_Three extends Widget_Base {
         );
 
         $this->add_control(
-                'listing_post_date', [
+                'top_post_date', [
             'label' => esc_html__('Post Date', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SWITCHER,
             'default' => 'yes',
@@ -263,9 +141,10 @@ class Block_Three extends Widget_Base {
         );
 
         $this->add_control(
-                'listing_post_comment', [
+                'top_post_comment', [
             'label' => esc_html__('Post Comments', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SWITCHER,
+            'default' => 'yes',
             'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
             'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
             'return_value' => 'yes',
@@ -275,19 +154,19 @@ class Block_Three extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'additional_settings', [
-            'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
+                'section_bottom_block', [
+            'label' => esc_html__('Bottom Block Settings', GME_TEXT_DOMAIN),
                 ]
         );
 
         $this->add_responsive_control(
-                'layout_col', [
+                'bottom_post_col', [
             'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'range' => [
                 'px' => [
                     'min' => 1,
-                    'max' => 3,
+                    'max' => 4,
                 ],
             ],
             'devices' => ['desktop', 'tablet', 'mobile'],
@@ -307,36 +186,135 @@ class Block_Three extends Widget_Base {
         );
 
         $this->add_control(
-                'listing_post_count_tablet', [
-            'label' => esc_html__('No of Listing Post to Display in Tablet', GME_TEXT_DOMAIN),
+                'bottom_post_count', [
+            'label' => esc_html__('No of Posts', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::SLIDER,
             'size_units' => ['px'],
             'range' => [
                 'px' => [
-                    'min' => 1,
+                    'min' => 0,
                     'max' => 20,
                     'step' => 1
                 ],
             ],
             'default' => [
                 'unit' => 'px',
-                'size' => 0,
+                'size' => 6,
             ],
-            'conditions' => [
-                'relation' => 'and',
-                'terms' => [
-                    [
-                        'name' => 'layout_col[size]',
-                        'operator' => '==',
-                        'value' => 3
-                    ],
-                    [
-                        'name' => 'layout_col_tablet[size]',
-                        'operator' => '==',
-                        'value' => 2
-                    ]
+            'separator' => 'after'
                 ]
+        );
+
+        $this->add_group_control(
+                Group_Control_Image_Size::get_type(), [
+            'name' => 'bottom_thumb_image',
+            'exclude' => ['custom'],
+            'include' => [],
+            'default' => 'large',
+                ]
+        );
+
+        $this->add_control(
+                'bottom_thumb_position', [
+            'label' => esc_html__('Thumbnail Position', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                'left' => esc_html__('Left', GME_TEXT_DOMAIN),
+                'right' => esc_html__('Right', GME_TEXT_DOMAIN),
             ],
+            'default' => 'left'
+                ]
+        );
+
+        $this->add_control(
+                'bottom_thumb_width', [
+            'label' => esc_html__('Image Width(px)', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 30,
+                    'max' => 300,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 120,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .gm-bottom-block .gm-post-thumb' => 'min-width: {{SIZE}}{{UNIT}};',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'bottom_thumb_height', [
+            'label' => esc_html__('Image Height (%)', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['%'],
+            'range' => [
+                '%' => [
+                    'min' => 30,
+                    'max' => 150,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => '%',
+                'size' => 100,
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .gm-bottom-block .gm-post-thumb-container' => 'padding-bottom: {{SIZE}}{{UNIT}};',
+            ],
+                ]
+        );
+
+        $this->add_control('bottom_excerpt_length', [
+            'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::NUMBER,
+            'min' => 0,
+            'default' => 0,
+            'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
+        ]);
+
+        $this->add_control(
+                'bottom_post_author', [
+            'label' => esc_html__('Post Author', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SWITCHER,
+            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
+            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
+            'return_value' => 'yes',
+            'separator' => 'before'
+                ]
+        );
+
+        $this->add_control(
+                'bottom_post_date', [
+            'label' => esc_html__('Post Date', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SWITCHER,
+            'default' => 'yes',
+            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
+            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
+            'return_value' => 'yes',
+                ]
+        );
+
+        $this->add_control(
+                'bottom_post_comment', [
+            'label' => esc_html__('Post Comments', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SWITCHER,
+            'label_on' => esc_html__('Yes', GME_TEXT_DOMAIN),
+            'label_off' => esc_html__('No', GME_TEXT_DOMAIN),
+            'return_value' => 'yes',
+                ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+                'additional_settings', [
+            'label' => esc_html__('Additional Settings', GME_TEXT_DOMAIN),
                 ]
         );
 
@@ -402,14 +380,14 @@ class Block_Three extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'featured_title_style', [
-            'label' => esc_html__('Featured Block Title', GME_TEXT_DOMAIN),
+                'top_title_style', [
+            'label' => esc_html__('Top Block Title', GME_TEXT_DOMAIN),
             'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
 
         $this->add_control(
-                'featured_title_color', [
+                'top_title_color', [
             'label' => esc_html__('Color', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::COLOR,
             'scheme' => [
@@ -417,28 +395,28 @@ class Block_Three extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-left-block h3.gm-post-title a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-top-block h3.gm-post-title a' => 'color: {{VALUE}}',
             ],
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'featured_title_typography',
+            'name' => 'top_title_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-left-block h3.gm-post-title',
+            'selector' => '{{WRAPPER}} .gm-top-block h3.gm-post-title',
                 ]
         );
 
         $this->add_control(
-                'featured_title_margin', [
+                'top_title_margin', [
             'label' => esc_html__('Margin', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::DIMENSIONS,
             'allowed_dimensions' => 'vertical',
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .gm-left-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+                '{{WRAPPER}} .gm-top-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
@@ -446,14 +424,14 @@ class Block_Three extends Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-                'list_title_style', [
-            'label' => esc_html__('Listing Block Title', GME_TEXT_DOMAIN),
+                'bottom_title_style', [
+            'label' => esc_html__('Bottom Block Title', GME_TEXT_DOMAIN),
             'tab' => Controls_Manager::TAB_STYLE,
                 ]
         );
 
         $this->add_control(
-                'list_title_color', [
+                'bottom_title_color', [
             'label' => esc_html__('Color', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::COLOR,
             'scheme' => [
@@ -461,28 +439,28 @@ class Block_Three extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-right-block h3.gm-post-title a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-bottom-block h3.gm-post-title a' => 'color: {{VALUE}}',
             ],
                 ]
         );
 
         $this->add_group_control(
                 Group_Control_Typography::get_type(), [
-            'name' => 'list_title_typography',
+            'name' => 'bottom_title_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-right-block h3.gm-post-title a',
+            'selector' => '{{WRAPPER}} .gm-bottom-block h3.gm-post-title a',
                 ]
         );
 
         $this->add_control(
-                'list_title_margin', [
+                'bottom_title_margin', [
             'label' => esc_html__('Margin', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::DIMENSIONS,
             'allowed_dimensions' => 'vertical',
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .gm-right-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+                '{{WRAPPER}} .gm-bottom-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
@@ -505,7 +483,7 @@ class Block_Three extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-left-block .gm-post-excerpt' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-post-excerpt' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -515,7 +493,7 @@ class Block_Three extends Widget_Base {
             'name' => 'excerpt_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-left-block .gm-post-excerpt',
+            'selector' => '{{WRAPPER}} .gm-post-excerpt',
                 ]
         );
 
@@ -557,15 +535,22 @@ class Block_Three extends Widget_Base {
     /** Render Layout */
     protected function render() {
         $settings = $this->get_settings_for_display();
-        $featured_post_count = $settings['featured_post_count']['size'];
-        $listing_post_count_tablet = $settings['listing_post_count_tablet']['size'];
-        $hide_after_post_count = (int) $featured_post_count + (int) $listing_post_count_tablet;
+        $top_post_count = 1;
+        $bottom_post_count = $settings['bottom_post_count']['size'];
+        $bottom_thumb_position = $settings['bottom_thumb_position'];
 
-        $this->add_render_attribute('gm-post-block-three', 'class', [
-            'gm-post-block-three',
-            'gm-pbt-col-' . $settings['layout_col']['size'],
-            'gm-pbt-tablet-col-' . $settings['layout_col_tablet']['size'],
-            'gm-pbt-mobile-col-' . $settings['layout_col_mobile']['size']
+        $this->add_render_attribute('gm-top-block', 'class', [
+            'gm-top-block'
+                ]
+        );
+
+        $this->add_render_attribute('gm-bottom-block', 'class', [
+            'gm-bottom-block',
+            'gm-row',
+            'gm-col-' . $settings['bottom_post_col']['size'],
+            'gm-tablet-col-' . $settings['bottom_post_col_tablet']['size'],
+            'gm-mobile-col-' . $settings['bottom_post_col_mobile']['size'],
+            'gm-thumb-position-' . $bottom_thumb_position
                 ]
         );
         ?>
@@ -580,22 +565,22 @@ class Block_Three extends Widget_Base {
             ?>
 
             <?php if ($post_query->have_posts()) { ?>
-                <div <?php echo $this->get_render_attribute_string('gm-post-block-three'); ?>>
+                <div class="gm-post-block-eight">
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
                         $current_post_count = $post_query->current_post + 1;
                         $total_post_count = $post_query->post_count;
 
-                        $image_size = ( $current_post_count <= $featured_post_count ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
-                        $title_class = ( $current_post_count <= $featured_post_count ) ? ' gm-big-title' : '';
-                        $post_list_class = $current_post_count > $hide_after_post_count ? 'gm-tablet-hide' : '';
+                        $image_size = ( $current_post_count <= $top_post_count ) ? $settings['top_thumb_image_size'] : $settings['bottom_thumb_image_size'];
+                        $excerpt_length = ( $current_post_count <= $top_post_count ) ? $settings['top_excerpt_length'] : $settings['bottom_excerpt_length'];
+                        $title_class = ( $current_post_count <= $top_post_count ) ? ' gm-big-title' : '';
                         ?>
                         <?php if ($current_post_count == 1) { ?>
-                            <div class="gm-left-block">
+                            <div <?php echo $this->get_render_attribute_string('gm-top-block'); ?>>
                             <?php }; ?>
 
-                            <div class="gm-post-list <?php echo esc_attr($post_list_class); ?>">
+                            <div class="gm-post-list">
                                 <?php good_magazine_elements_image($image_size); ?>
 
                                 <div class="gm-post-content">
@@ -604,23 +589,23 @@ class Block_Three extends Widget_Base {
 
                                     <?php $this->get_post_meta($current_post_count); ?>
 
-                                    <?php $this->get_post_excerpt($current_post_count); ?>
+                                    <?php if ($excerpt_length) { ?>
+                                        <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
+                                    <?php } ?>
                                 </div>
                             </div>
 
-                            <?php if (($total_post_count < $featured_post_count && $total_post_count == $current_post_count) || $current_post_count == $featured_post_count) { ?>
+                            <?php if (($total_post_count < $top_post_count && $total_post_count == $current_post_count) || $current_post_count == $top_post_count) { ?>
                             </div>
 
-                            <?php if ($total_post_count > $featured_post_count) { ?>
-                                <div class="gm-right-block">
-                                    <div class="gm-right-block-wrap">
-                                        <?php
-                                    }
+                            <?php if ($total_post_count > $top_post_count) { ?>
+                                <div <?php echo $this->get_render_attribute_string('gm-bottom-block'); ?>>
+                                    <?php
                                 }
-                                ?>
+                            }
 
-                                <?php if ($total_post_count > $featured_post_count && $total_post_count == $current_post_count) { ?>
-                                </div>
+                            if ($total_post_count > $top_post_count && $total_post_count == $current_post_count) {
+                                ?>
                             </div>
                         <?php } ?>
                         <?php
@@ -678,7 +663,7 @@ class Block_Three extends Widget_Base {
         $args['ignore_sticky_posts'] = 1;
         $args['post_status'] = 'publish';
         $args['offset'] = $settings['posts_offset'];
-        $args['posts_per_page'] = (int) $settings['listing_post_count']['size'] + (int) $settings['featured_post_count']['size'];
+        $args['posts_per_page'] = 1 + (int) $settings['bottom_post_count']['size'];
         $args['post__not_in'] = $post_type == 'post' ? $settings['posts_exclude_posts'] : [];
 
         $args['tax_query'] = [];
@@ -700,26 +685,14 @@ class Block_Three extends Widget_Base {
         return $args;
     }
 
-    /** Get Post Excerpt */
-    protected function get_post_excerpt($count) {
-        $settings = $this->get_settings_for_display();
-        $featured_post_count = $settings['featured_post_count']['size'];
-        $settings = $this->get_settings_for_display();
-        $excerpt_length = $count <= $featured_post_count ? $settings['featured_excerpt_length'] : $settings['listing_excerpt_length'];
-        if ($excerpt_length) {
-            ?>
-            <div class="gm-post-excerpt"><?php echo good_magazine_elements_custom_excerpt($excerpt_length); ?></div>
-            <?php
-        }
-    }
-
     /** Get Post Metas */
     protected function get_post_meta($count) {
         $settings = $this->get_settings_for_display();
-        $featured_post_count = $settings['featured_post_count']['size'];
-        $post_author = $count <= $featured_post_count ? $settings['featured_post_author'] : $settings['listing_post_author'];
-        $post_date = $count <= $featured_post_count ? $settings['featured_post_date'] : $settings['listing_post_date'];
-        $post_comment = $count <= $featured_post_count ? $settings['featured_post_comment'] : $settings['listing_post_comment'];
+        $top_post_count = 1;
+
+        $post_author = $count <= $top_post_count ? $settings['top_post_author'] : $settings['bottom_post_author'];
+        $post_date = $count <= $top_post_count ? $settings['top_post_date'] : $settings['bottom_post_date'];
+        $post_comment = $count <= $top_post_count ? $settings['top_post_comment'] : $settings['bottom_post_comment'];
 
         if ($post_author == 'yes' || $post_date == 'yes' || $post_comment == 'yes') {
             ?>

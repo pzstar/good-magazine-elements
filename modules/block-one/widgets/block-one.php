@@ -448,7 +448,7 @@ class Block_One extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-left-block h3.gm-post-title a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-left-block h3.gm-post-title a' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -458,7 +458,7 @@ class Block_One extends Widget_Base {
             'name' => 'featured_title_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-one .gm-left-block h3.gm-post-title',
+            'selector' => '{{WRAPPER}} .gm-left-block h3.gm-post-title',
                 ]
         );
 
@@ -469,7 +469,7 @@ class Block_One extends Widget_Base {
             'allowed_dimensions' => 'vertical',
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-left-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+                '{{WRAPPER}} .gm-left-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
@@ -492,7 +492,7 @@ class Block_One extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-right-block h3.gm-post-title a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-right-block h3.gm-post-title a' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -502,7 +502,7 @@ class Block_One extends Widget_Base {
             'name' => 'list_title_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-one .gm-right-block h3.gm-post-title a',
+            'selector' => '{{WRAPPER}} .gm-right-block h3.gm-post-title a',
                 ]
         );
 
@@ -513,7 +513,7 @@ class Block_One extends Widget_Base {
             'allowed_dimensions' => 'vertical',
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-right-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+                '{{WRAPPER}} .gm-right-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
@@ -536,7 +536,7 @@ class Block_One extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-post-excerpt' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-post-excerpt' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -546,7 +546,7 @@ class Block_One extends Widget_Base {
             'name' => 'excerpt_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-one .gm-post-excerpt',
+            'selector' => '{{WRAPPER}} .gm-post-excerpt',
                 ]
         );
 
@@ -568,7 +568,7 @@ class Block_One extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-one .gm-post-meta span' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-post-meta span' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -578,7 +578,7 @@ class Block_One extends Widget_Base {
             'name' => 'post_metas_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-one .gm-post-meta span',
+            'selector' => '{{WRAPPER}} .gm-post-meta span',
                 ]
         );
 

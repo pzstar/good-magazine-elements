@@ -102,7 +102,7 @@ class Grid_Three extends Widget_Base {
             ],
             'devices' => ['desktop', 'tablet', 'mobile'],
             'desktop_default' => [
-                'size' => 2,
+                'size' => 3,
                 'unit' => 'px',
             ],
             'tablet_default' => [

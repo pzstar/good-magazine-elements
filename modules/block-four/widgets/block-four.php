@@ -272,6 +272,66 @@ class Block_Four extends Widget_Base {
                 ]
         );
 
+        $this->add_responsive_control(
+                'layout_col', [
+            'label' => esc_html__('No of Columns', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 3,
+                ],
+            ],
+            'devices' => ['desktop', 'tablet', 'mobile'],
+            'desktop_default' => [
+                'size' => 2,
+                'unit' => 'px',
+            ],
+            'tablet_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+            'mobile_default' => [
+                'size' => 1,
+                'unit' => 'px',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'listing_post_count_tablet', [
+            'label' => esc_html__('No of Listing Post to Display in Tablet', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range' => [
+                'px' => [
+                    'min' => 1,
+                    'max' => 20,
+                    'step' => 1
+                ],
+            ],
+            'default' => [
+                'unit' => 'px',
+                'size' => 0,
+            ],
+            'conditions' => [
+                'relation' => 'and',
+                'terms' => [
+                    [
+                        'name' => 'layout_col[size]',
+                        'operator' => '==',
+                        'value' => 3
+                    ],
+                    [
+                        'name' => 'layout_col_tablet[size]',
+                        'operator' => '==',
+                        'value' => 2
+                    ]
+                ]
+            ],
+                ]
+        );
+
         $this->add_control(
                 'date_format', [
             'label' => esc_html__('Date Format', GME_TEXT_DOMAIN),
@@ -317,7 +377,7 @@ class Block_Four extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block1 .good-magazine-post-main-header, {{WRAPPER}} .gm-post-block1 .good-magazine-post-main-header a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .good-magazine-post-main-header, {{WRAPPER}} .good-magazine-post-main-header a' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -327,7 +387,7 @@ class Block_Four extends Widget_Base {
             'name' => 'heading_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block1 .good-magazine-post-main-header, {{WRAPPER}} .gm-post-block1 .good-magazine-post-main-header a',
+            'selector' => '{{WRAPPER}} .good-magazine-post-main-header, {{WRAPPER}} .good-magazine-post-main-header a',
                 ]
         );
 
@@ -349,7 +409,7 @@ class Block_Four extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-four .gm-left-block h3.gm-post-title a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-left-block h3.gm-post-title a' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -359,7 +419,7 @@ class Block_Four extends Widget_Base {
             'name' => 'featured_title_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-four .gm-left-block h3.gm-post-title',
+            'selector' => '{{WRAPPER}} .gm-left-block h3.gm-post-title',
                 ]
         );
 
@@ -370,7 +430,7 @@ class Block_Four extends Widget_Base {
             'allowed_dimensions' => 'vertical',
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-four .gm-left-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+                '{{WRAPPER}} .gm-left-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
@@ -393,7 +453,7 @@ class Block_Four extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-four .gm-right-block h3.gm-post-title a' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-right-block h3.gm-post-title a' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -403,7 +463,7 @@ class Block_Four extends Widget_Base {
             'name' => 'list_title_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-four .gm-right-block h3.gm-post-title a',
+            'selector' => '{{WRAPPER}} .gm-right-block h3.gm-post-title a',
                 ]
         );
 
@@ -414,7 +474,7 @@ class Block_Four extends Widget_Base {
             'allowed_dimensions' => 'vertical',
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-four .gm-right-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
+                '{{WRAPPER}} .gm-right-block h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
@@ -437,7 +497,7 @@ class Block_Four extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-four .gm-left-block .gm-post-excerpt' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-left-block .gm-post-excerpt' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -447,7 +507,7 @@ class Block_Four extends Widget_Base {
             'name' => 'excerpt_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-four .gm-left-block .gm-post-excerpt',
+            'selector' => '{{WRAPPER}} .gm-left-block .gm-post-excerpt',
                 ]
         );
 
@@ -469,7 +529,7 @@ class Block_Four extends Widget_Base {
                 'value' => Scheme_Color::COLOR_1,
             ],
             'selectors' => [
-                '{{WRAPPER}} .gm-post-block-four .gm-post-meta span' => 'color: {{VALUE}}',
+                '{{WRAPPER}} .gm-post-meta span' => 'color: {{VALUE}}',
             ],
                 ]
         );
@@ -479,7 +539,7 @@ class Block_Four extends Widget_Base {
             'name' => 'post_metas_typography',
             'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
             'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-block-four .gm-post-meta span',
+            'selector' => '{{WRAPPER}} .gm-post-meta span',
                 ]
         );
 
@@ -490,6 +550,16 @@ class Block_Four extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         $featured_post_count = $settings['featured_post_count']['size'];
+        $listing_post_count_tablet = $settings['listing_post_count_tablet']['size'];
+        $hide_after_post_count = (int) $featured_post_count + (int) $listing_post_count_tablet;
+
+        $this->add_render_attribute('gm-post-block-four', 'class', [
+            'gm-post-block-four',
+            'gm-pbf-col-' . $settings['layout_col']['size'],
+            'gm-pbf-tablet-col-' . $settings['layout_col_tablet']['size'],
+            'gm-pbf-mobile-col-' . $settings['layout_col_mobile']['size']
+                ]
+        );
         ?>
         <div class="gm-post-block">
 
@@ -502,7 +572,7 @@ class Block_Four extends Widget_Base {
             ?>
 
             <?php if ($post_query->have_posts()) { ?>
-                <div class="gm-post-block-four">
+                <div <?php echo $this->get_render_attribute_string('gm-post-block-four'); ?>>
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
@@ -510,14 +580,15 @@ class Block_Four extends Widget_Base {
                         $total_post_count = $post_query->post_count;
                         $image_size = ( $current_post_count <= $featured_post_count ) ? $settings['featured_post_image_size'] : $settings['list_post_image_size'];
                         $title_class = ( $current_post_count <= $featured_post_count ) ? ' gm-big-title' : '';
+                        $post_list_class = $current_post_count > $hide_after_post_count ? 'gm-tablet-hide' : '';
                         ?>
                         <?php if ($current_post_count == 1) { ?>
                             <div class="gm-left-block">
                             <?php }; ?>
 
-                            <div class="gm-post-list">
+                            <div class="gm-post-list <?php echo esc_attr($post_list_class); ?>">
                                 <?php
-                                if ($current_post_count <= (int) $featured_post_count + 1) {
+                                if ($current_post_count <= (int) $featured_post_count + 2) {
                                     good_magazine_elements_image($image_size);
                                 }
                                 ?>
@@ -537,12 +608,14 @@ class Block_Four extends Widget_Base {
 
                             <?php if ($total_post_count > $featured_post_count) { ?>
                                 <div class="gm-right-block">
-                                    <?php
+                                    <div class="gm-right-block-wrap">
+                                        <?php
+                                    }
                                 }
-                            }
-                            ?>
+                                ?>
 
-                            <?php if ($total_post_count > 1 && $total_post_count == $current_post_count) { ?>
+                                <?php if ($total_post_count > 1 && $total_post_count == $current_post_count) { ?>
+                                </div>
                             </div>
                         <?php } ?>
                         <?php

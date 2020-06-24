@@ -216,6 +216,28 @@ class Grid_Four extends Widget_Base {
             'default' => 'left'
                 ]
         );
+        
+        $this->add_control(
+                'content_padding', [
+            'label' => esc_html__('Content Padding', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-graident-title .gm-post-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'content_margin', [
+            'label' => esc_html__('Content Margin', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-graident-title .gm-post-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
 
         $this->end_controls_section();
 

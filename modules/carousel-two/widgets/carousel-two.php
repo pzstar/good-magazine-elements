@@ -345,6 +345,45 @@ class Carousel_Two extends Widget_Base {
             'default' => 'left'
                 ]
         );
+        
+        $this->add_control(
+                'content_padding', [
+            'label' => esc_html__('Content Padding', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'content_margin', [
+            'label' => esc_html__('Content Margin', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%', 'em'],
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
+
+        $this->end_controls_section();
+        
+        $this->start_controls_section(
+                'overlay_background_section', [
+            'label' => esc_html__('Overlay Background', GME_TEXT_DOMAIN),
+                ]
+        );
+
+        $this->add_group_control(
+                \Elementor\Group_Control_Background::get_type(), [
+            'name' => 'background',
+            'label' => __('Overlay Background', GME_TEXT_DOMAIN),
+            'types' => ['gradient'],
+            'selector' => '{{WRAPPER}} .gm-post-content',
+                ]
+        );
 
         $this->end_controls_section();
 
@@ -430,50 +469,6 @@ class Carousel_Two extends Widget_Base {
             'size_units' => ['px', '%', 'em'],
             'selectors' => [
                 '{{WRAPPER}} h3.gm-post-title' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
-            ],
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'excerpt_style', [
-            'label' => esc_html__('Post Excerpt', GME_TEXT_DOMAIN),
-            'tab' => Controls_Manager::TAB_STYLE,
-                ]
-        );
-
-        $this->add_control(
-                'excerpt_color', [
-            'label' => esc_html__('Color', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::COLOR,
-            'scheme' => [
-                'type' => Scheme_Color::get_type(),
-                'value' => Scheme_Color::COLOR_1,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-content .gm-post-excerpt' => 'color: {{VALUE}}',
-            ],
-                ]
-        );
-
-        $this->add_group_control(
-                Group_Control_Typography::get_type(), [
-            'name' => 'excerpt_typography',
-            'label' => esc_html__('Typography', GME_TEXT_DOMAIN),
-            'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-            'selector' => '{{WRAPPER}} .gm-post-content .gm-post-excerpt',
-                ]
-        );
-
-        $this->add_control(
-                'excerpt_margin', [
-            'label' => esc_html__('Margin', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::DIMENSIONS,
-            'allowed_dimensions' => 'vertical',
-            'size_units' => ['px', '%', 'em'],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-content .gm-post-excerpt' => 'margin: {{TOP}}{{UNIT}} 0 {{BOTTOM}}{{UNIT}} 0;',
             ],
                 ]
         );
