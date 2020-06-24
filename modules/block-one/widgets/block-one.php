@@ -353,10 +353,6 @@ class Block_One extends Widget_Base {
                     'step' => 1
                 ],
             ],
-            'default' => [
-                'unit' => 'px',
-                'size' => 0,
-            ],
             'conditions' => [
                 'relation' => 'and',
                 'terms' => [
@@ -593,10 +589,11 @@ class Block_One extends Widget_Base {
     protected function render() {
         $settings = $this->get_settings_for_display();
         $featured_post_count = $settings['featured_post_count']['size'];
+        $listing_post_count = $settings['listing_post_count']['size'];
         $listing_thumb_position = $settings['listing_thumb_position'];
-        $listing_post_count_tablet = $settings['listing_post_count_tablet']['size'];
+        $listing_post_count_tablet = $settings['listing_post_count_tablet']['size'] ? $settings['listing_post_count_tablet']['size'] : $listing_post_count;
         $hide_after_post_count = (int) $featured_post_count + (int) $listing_post_count_tablet;
-        
+
         $this->add_render_attribute('gm-post-block-one', 'class', [
             'gm-post-block-one',
             'gm-pbo-col-' . $settings['layout_col']['size'],
@@ -604,7 +601,6 @@ class Block_One extends Widget_Base {
             'gm-pbo-mobile-col-' . $settings['layout_col_mobile']['size']
                 ]
         );
-        
         ?>
         <div class="gm-post-block">
 
@@ -649,12 +645,14 @@ class Block_One extends Widget_Base {
 
                             <?php if ($total_post_count > $featured_post_count) { ?>
                                 <div class="gm-right-block gm-thumb-position-<?php echo esc_attr($listing_thumb_position); ?>">
-                                    <?php
+                                    <div class="gm-right-block-wrap">
+                                        <?php
+                                    }
                                 }
-                            }
-                            ?>
+                                ?>
 
-                            <?php if ($total_post_count > $featured_post_count && $total_post_count == $current_post_count) { ?>
+                                <?php if ($total_post_count > $featured_post_count && $total_post_count == $current_post_count) { ?>
+                                </div>
                             </div>
                         <?php } ?>
                         <?php
