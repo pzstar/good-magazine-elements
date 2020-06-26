@@ -23,22 +23,22 @@ class Block_Four extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-block-four';
+        return 'gm-news-block-four';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Four', GME_TEXT_DOMAIN);
+        return esc_html__('News Block Four', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-four';
+        return 'gm-elements gm-block-four';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

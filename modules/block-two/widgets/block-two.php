@@ -24,22 +24,22 @@ class Block_Two extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'good-magazine-block-two';
+        return 'gm-news-block-two';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Two', GME_TEXT_DOMAIN);
+        return esc_html__('News Block Two', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-two';
+        return 'gm-elements gm-block-two';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

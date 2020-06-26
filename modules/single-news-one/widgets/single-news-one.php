@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\SinglePostOne\Widgets;
+namespace GoodMagazineElements\Modules\SingleNewsOne\Widgets;
 
 // Elementor Classes
 use Elementor\Widget_Base;
@@ -17,26 +17,26 @@ if (!defined('ABSPATH')) {
 /**
  * Tiled Posts Widget
  */
-class Single_Post_One extends Widget_Base {
+class Single_News_One extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-single-post-one';
+        return 'gm-single-news-one';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Single Post One', GME_TEXT_DOMAIN);
+        return esc_html__('Single News One', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-single-post-one';
+        return 'gm-elements gm-single-news-one';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

@@ -10,7 +10,7 @@ if (!defined('ABSPATH'))
 class Module extends Module_Base {
 
     public function get_name() {
-        return 'gm-post-grid-two';
+        return 'gm-news-grid-two';
     }
 
     public function get_widgets() {

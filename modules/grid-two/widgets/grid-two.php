@@ -23,22 +23,22 @@ class Grid_Two extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-grid-two';
+        return 'gm-news-grid-two';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Grid Two', GME_TEXT_DOMAIN);
+        return esc_html__('News Grid Two', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-grid-two';
+        return 'gm-elements gm-grid-two';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

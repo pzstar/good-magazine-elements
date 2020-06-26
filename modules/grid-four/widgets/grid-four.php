@@ -23,22 +23,22 @@ class Grid_Four extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-grid-four';
+        return 'gm-news-grid-four';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Grid Four', GME_TEXT_DOMAIN);
+        return esc_html__('News Grid Four', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-grid-four';
+        return 'gm-elements gm-grid-four';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

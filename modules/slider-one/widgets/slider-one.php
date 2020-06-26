@@ -23,22 +23,22 @@ class Slider_One extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-slider-one';
+        return 'gm-news-slider-one';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Slider One', GME_TEXT_DOMAIN);
+        return esc_html__('News Slider One', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-slider-one';
+        return 'gm-elements gm-slider-one';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

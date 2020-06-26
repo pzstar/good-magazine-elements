@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\SinglePostTwo;
+namespace GoodMagazineElements\Modules\SingleNewsOne;
 
 use GoodMagazineElements\Base\Module_Base;
 
@@ -10,12 +10,12 @@ if (!defined('ABSPATH'))
 class Module extends Module_Base {
 
     public function get_name() {
-        return 'gm-single-post-two';
+        return 'gm-single-news-one';
     }
 
     public function get_widgets() {
         $widgets = [
-            'Single_Post_Two',
+            'Single_News_One',
         ];
         return $widgets;
     }

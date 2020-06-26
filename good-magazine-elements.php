@@ -119,7 +119,6 @@ if (!class_exists('Good_Magazine_Elements')) {
 
             require( GME_PATH . 'includes/gme-widget-loader.php' );
             require( GME_PATH . 'includes/helper-functions.php' );
-            require( GME_PATH . 'includes/ajax-functions.php' );
 
             if ('yes' !== get_option('elementor_disable_color_schemes')) {
                 update_option('elementor_disable_color_schemes', 'yes');

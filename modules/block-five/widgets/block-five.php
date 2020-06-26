@@ -23,22 +23,22 @@ class Block_Five extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-block-five';
+        return 'gm-news-block-five';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Five', GME_TEXT_DOMAIN);
+        return esc_html__('News Block Five', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-five';
+        return 'gm-elements gm-block-five';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

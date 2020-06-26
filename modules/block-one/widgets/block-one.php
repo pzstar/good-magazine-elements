@@ -23,22 +23,22 @@ class Block_One extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-block-one';
+        return 'gm-news-block-one';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block One', GME_TEXT_DOMAIN);
+        return esc_html__('News Block One', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-one';
+        return 'gm-elements gm-block-one';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

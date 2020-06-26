@@ -23,22 +23,22 @@ class Grid_Three extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-grid-three';
+        return 'gm-news-grid-three';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Grid Three', GME_TEXT_DOMAIN);
+        return esc_html__('News Grid Three', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-grid-three';
+        return 'gm-elements gm-grid-three';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

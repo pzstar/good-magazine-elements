@@ -45,9 +45,9 @@ final class GME_Modules_Manager {
             'grid-two',
             'grid-three',
             'grid-four',
-            'single-post-one',
-            'single-post-two',
-            'single-post-three'
+            'single-news-one',
+            'single-news-two',
+            'single-news-three'
         ];
 
         if (is_plugin_active('contact-form-7/wp-contact-form-7.php')) {

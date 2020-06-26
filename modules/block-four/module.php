@@ -10,7 +10,7 @@ if (!defined('ABSPATH'))
 class Module extends Module_Base {
 
     public function get_name() {
-        return 'gm-post-block-four';
+        return 'gm-news-block-four';
     }
 
     public function get_widgets() {

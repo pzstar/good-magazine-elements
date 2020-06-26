@@ -23,22 +23,22 @@ class Carousel_One extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-post-carousel-one';
+        return 'gm-news-carousel-one';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Carousel One', GME_TEXT_DOMAIN);
+        return esc_html__('News Carousel One', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-carousel-one';
+        return 'gm-elements gm-carousel-one';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */
@@ -611,7 +611,7 @@ class Carousel_One extends Widget_Base {
 
         $this->add_control(
                 'nav_icon_color_hover', [
-            'label' => esc_html__('Navigation Button Icon Color', GME_TEXT_DOMAIN),
+            'label' => esc_html__('Button Icon Color', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::COLOR,
             'scheme' => [
                 'type' => Scheme_Color::get_type(),

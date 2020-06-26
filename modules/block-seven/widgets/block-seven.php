@@ -24,22 +24,22 @@ class Block_Seven extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'good-magazine-block-seven';
+        return 'gm-news-block-seven';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Post Block Seven', GME_TEXT_DOMAIN);
+        return esc_html__('News Block Seven', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-seven';
+        return 'gm-elements gm-block-seven';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */

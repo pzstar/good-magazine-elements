@@ -5,10 +5,10 @@
         init: function () {
 
             var widgets = {
-                'gm-post-slider-one.default': GMElements.sliderOneController,
-                'gm-post-carousel-one.default': GMElements.carouselOneController,
-                'gm-post-carousel-two.default': GMElements.carouselTwoController,
-                'gm-post-carousel-three.default': GMElements.carouselThreeController
+                'gm-news-slider-one.default': GMElements.sliderOneController,
+                'gm-news-carousel-one.default': GMElements.carouselOneController,
+                'gm-news-carousel-two.default': GMElements.carouselTwoController,
+                'gm-news-carousel-three.default': GMElements.carouselThreeController
             };
 
             $.each(widgets, function (widget, callback) {

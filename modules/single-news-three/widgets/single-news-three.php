@@ -1,6 +1,6 @@
 <?php
 
-namespace GoodMagazineElements\Modules\SinglePostTwo\Widgets;
+namespace GoodMagazineElements\Modules\SingleNewsThree\Widgets;
 
 // Elementor Classes
 use Elementor\Widget_Base;
@@ -9,6 +9,8 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
 use Elementor\Scheme_Typography;
 use Elementor\Scheme_Color;
+use GoodMagazineElements\Group_Control_Query;
+use GoodMagazineElements\Group_Control_Header;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
@@ -17,26 +19,26 @@ if (!defined('ABSPATH')) {
 /**
  * Tiled Posts Widget
  */
-class Single_Post_Two extends Widget_Base {
+class Single_News_Three extends Widget_Base {
 
     /** Widget Name */
     public function get_name() {
-        return 'gm-single-post-two';
+        return 'gm-single-news-three';
     }
 
     /** Widget Title */
     public function get_title() {
-        return esc_html__('Single Post Two', GME_TEXT_DOMAIN);
+        return esc_html__('Single News Three', GME_TEXT_DOMAIN);
     }
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-single-post-two';
+        return 'gm-elements gm-single-news-three';
     }
 
     /** Category */
     public function get_categories() {
-        return ['good-magazine-elements-blocks'];
+        return ['good-magazine-elements'];
     }
 
     /** Controls */
@@ -102,7 +104,7 @@ class Single_Post_Two extends Widget_Base {
             'description' => esc_html__('Displays latest post from the selected tags', GME_TEXT_DOMAIN)
                 ]
         );
-
+        
         $this->add_control(
                 'offset', [
             'label' => esc_html__('Offset', GME_TEXT_DOMAIN),
@@ -199,7 +201,6 @@ class Single_Post_Two extends Widget_Base {
             'label' => esc_html__('Excerpt Length (in Letters)', GME_TEXT_DOMAIN),
             'type' => Controls_Manager::NUMBER,
             'min' => 0,
-            'default' => 0,
             'description' => esc_html__('Leave blank or enter 0 to hide the excerpt', GME_TEXT_DOMAIN),
         ]);
 
@@ -266,34 +267,6 @@ class Single_Post_Two extends Widget_Base {
                 ]
         );
 
-        $this->add_control(
-                'content_margin', [
-            'label' => esc_html__('Content Margin', GME_TEXT_DOMAIN),
-            'type' => Controls_Manager::DIMENSIONS,
-            'size_units' => ['px', '%', 'em'],
-            'selectors' => [
-                '{{WRAPPER}} .gm-post-graident-title .gm-post-content' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-                ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-                'overlay_background_section', [
-            'label' => esc_html__('Overlay Background', GME_TEXT_DOMAIN),
-                ]
-        );
-
-        $this->add_group_control(
-                \Elementor\Group_Control_Background::get_type(), [
-            'name' => 'background',
-            'label' => __('Overlay Background', GME_TEXT_DOMAIN),
-            'types' => ['gradient'],
-            'selector' => '{{WRAPPER}} .gm-post-graident-title .gm-post-content',
-                ]
-        );
-
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -313,6 +286,21 @@ class Single_Post_Two extends Widget_Base {
             ],
             'selectors' => [
                 '{{WRAPPER}} .gm-post-title a' => 'color: {{VALUE}}',
+            ],
+                ]
+        );
+
+        $this->add_control(
+                'title_bg_color', [
+            'label' => esc_html__('Background Color', GME_TEXT_DOMAIN),
+            'type' => Controls_Manager::COLOR,
+            'scheme' => [
+                'type' => Scheme_Color::get_type(),
+                'value' => Scheme_Color::COLOR_1,
+            ],
+            'default' => '#000000',
+            'selectors' => [
+                '{{WRAPPER}} .gm-post-title a' => 'background-color: {{VALUE}}',
             ],
                 ]
         );
@@ -441,7 +429,7 @@ class Single_Post_Two extends Widget_Base {
 
             if ($post_query->have_posts()) {
                 ?>
-                <div class="gm-single-post-two">
+                <div class="gm-single-post-three">
                     <?php
                     while ($post_query->have_posts()) {
                         $post_query->the_post();
@@ -537,7 +525,7 @@ class Single_Post_Two extends Widget_Base {
                 ];
             }
         }
-
+        
         if ($settings['offset']) {
             $args['offset'] = $settings['offset'];
         }

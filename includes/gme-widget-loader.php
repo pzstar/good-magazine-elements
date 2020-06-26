@@ -20,17 +20,12 @@ class GME_Widget_Loader {
         $this->includes();
         // Elementor hooks
         $this->add_actions();
-        //new Good_Magazine_Elements_Group_Control_Query();
     }
 
     function add_elementor_widget_categories() {
 
         $groups = array(
-            'good-magazine-elements' => esc_html__('Good Magazine - Elements', GME_TEXT_DOMAIN),
-            'good-magazine-elements-blocks' => esc_html__('Good Magazine - Blocks', GME_TEXT_DOMAIN),
-            'good-magazine-elements-grid' => esc_html__('Good Magazine - Grid', GME_TEXT_DOMAIN),
-            'good-magazine-elements-slider' => esc_html__('Good Magazine - Slider', GME_TEXT_DOMAIN),
-            'good-magazine-elements-carousel' => esc_html__('Good Magazine - Carousel', GME_TEXT_DOMAIN)
+            'good-magazine-elements' => esc_html__('Good Magazine - Elements', GME_TEXT_DOMAIN)
         );
 
         foreach ($groups as $key => $value) {
@@ -75,7 +70,6 @@ class GME_Widget_Loader {
             );
 
             $filename = GME_PATH . $filename . '.php';
-//echo $filename. "<br/>";
             if (is_readable($filename)) {
                 include( $filename );
             }
@@ -125,13 +119,10 @@ class GME_Widget_Loader {
     public function register_controls() {
         require_once GME_PATH . 'includes/controls/groups/group-control-query.php';
         require_once GME_PATH . 'includes/controls/groups/group-control-header.php';
-        require_once GME_PATH . 'includes/controls/groups/group-control-header-filter.php';
-        require_once GME_PATH . 'includes/controls/groups/group-control-meta.php';
+
         // Register Group
         \Elementor\Plugin::instance()->controls_manager->add_group_control('good-magazine-elements-query', new Group_Control_Query());
         \Elementor\Plugin::instance()->controls_manager->add_group_control('good-magazine-elements-header', new Group_Control_Header());
-        \Elementor\Plugin::instance()->controls_manager->add_group_control('good-magazine-elements-filter', new Group_Control_Header_filter());
-        \Elementor\Plugin::instance()->controls_manager->add_group_control('good-magazine-elements-meta', new Group_Control_Meta());
     }
 
     /**
@@ -152,13 +143,6 @@ class GME_Widget_Loader {
         wp_enqueue_script('owl-carousel', GME_URL . 'assets/lib/owl-carousel/js/owl.carousel.min.js', array('jquery'), GME_VERSION, true);
         wp_enqueue_script('slick', GME_URL . 'assets/lib/slick/slick.min.js', array('jquery'), GME_VERSION, true);
         wp_enqueue_script('good-magazine-elements-frontend', GME_URL . 'assets/js/frontend.js', array('jquery'), GME_VERSION, true);
-
-        wp_register_script('good-magazine-elements-ajax', GME_URL . 'assets/js/ajax-scripts.js', array(), GME_VERSION);
-        $localize_args = array(
-            'ajaxurl' => admin_url('admin-ajax.php')
-        );
-        wp_localize_script('good-magazine-elements-ajax', 'gme_ajax_script', $localize_args);
-        wp_enqueue_script('good-magazine-elements-ajax');
     }
 
     /**
@@ -176,7 +160,7 @@ class GME_Widget_Loader {
      * @access public
      */
     public function enqueue_frontend_styles() {
-        wp_enqueue_style('good-magazine-elements-style', GME_URL . 'assets/lib/themify-icons/themify-icons.css', array(), GME_VERSION);
+        wp_enqueue_style('themify-icons', GME_URL . 'assets/lib/themify-icons/themify-icons.css', array(), GME_VERSION);
         wp_enqueue_style('owl-carousel', GME_URL . 'assets/lib/owl-carousel/css/owl.carousel.min.css', array(), GME_VERSION);
         wp_enqueue_style('good-magazine-elements-frontend', GME_URL . 'assets/css/frontend.css', array(), GME_VERSION);
     }
