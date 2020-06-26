@@ -41,74 +41,88 @@
 }
 
 .good-mag-elements{
-    background-image: url(../img/layouts.png) !important;
+    background-image: url(../img/layout.png) !important;
     background-repeat: no-repeat;
     background-size: auto !important;
-    margin-top: -5px !important;
     width: 60px !important;
-    height: 45px !important;
+    height: 60px !important;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-.yoomag-grid-1 {
-    background-position: 1px 8px !important;
-}
-.yoomag-grid-2 {
-    background-position: 1px -39px !important;
-}
-.yoomag-grid-3 {
-     background-position: -63px -39px !important;
-}
-.yoomag-grid-4 {
-    background-position: 2px -85px !important;
-}
-.yoomag-grid-5 {
-    background-position: -63px -85px !important;
+
+.good-mag-block-one{
+    background-position: -20px -10px;
 }
 
-.yoomag-module-1 {
-    background-position: 4px -131px !important;
+.good-mag-block-two{
+    background-position: -120px -6px;
 }
 
-.yoomag-module-2 {
-    background-position: -61px -131px !important;
-}
-.yoomag-module-3 {
-    background-position: 1px -177px !important;
+.good-mag-block-three{
+    background-position: -20px -92px;
 }
 
-.yoomag-module-4 {
-    background-position: -63px -177px !important;
-}
-.yoomag-module-5 {
-    background-position: 1px -223px !important;
-}
-.yoomag-module-6 {
-    background-position: -61px -223px !important;
-}
-.yoomag-module-7 {
-    background-position: -61px -269px !important;
-}
-.yoomag-module-8 {
-    background-position: 1px -315px !important;
-}
-.yoomag-module-9 {
-    background-position: -62px -315px !important;
+.good-mag-block-four{
+    background-position: -120px -92px;
 }
 
-.yoomag-slider-1 {
-    background-position: 1px -403px !important;
+.good-mag-block-five{
+    background-position: -20px -170px;
 }
 
-.yoomag-slider-2 {
-    background-position: 1px -360px !important;
+.good-mag-block-six{
+    background-position: -120px -170px;
 }
 
-.yoomag-slider-3 {
-    background-position: -61px -361px !important;
+.good-mag-block-seven{
+    background-position: -20px -252px;
 }
 
-.yoomag-ads-block {
-    background-position: 1px -269px !important;
+.good-mag-block-eight {
+    background-position: -120px -252px;
+}
+
+.good-mag-slider-one {
+    background-position: -20px -333px;
+}
+
+.good-mag-carousel-one{
+    background-position: -120px -333px;
+}
+
+.good-mag-carousel-two{
+    background-position: -20px -410px;
+}
+
+.good-mag-carousel-three{
+    background-position: -120px -410px;
+}
+
+.good-mag-grid-one{
+    background-position: -20px -494px;
+}
+
+.good-mag-grid-two{
+    background-position: -120px -494px;
+}
+
+.good-mag-grid-three{
+    background-position: -20px -573px;
+}
+
+.good-mag-grid-four{
+    background-position: -120px -573px;
+}
+
+.good-mag-single-post-one{
+    background-position: -20px -653px;
+}
+
+.good-mag-single-post-two{
+    background-position: -120px -653px;
+}
+
+.good-mag-single-post-three{
+    background-position: -20px -733px;
 }

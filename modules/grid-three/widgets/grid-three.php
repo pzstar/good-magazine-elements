@@ -33,7 +33,7 @@ class Grid_Three extends Widget_Base {
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-grid-two';
+        return 'good-mag-elements good-mag-grid-three';
     }
 
     /** Category */

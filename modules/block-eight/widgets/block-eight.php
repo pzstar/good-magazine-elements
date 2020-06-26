@@ -34,7 +34,7 @@ class Block_Eight extends Widget_Base {
 
     /** Icon */
     public function get_icon() {
-        return 'good-mag-elements good-mag-block-seven';
+        return 'good-mag-elements good-mag-block-eight';
     }
 
     /** Category */
