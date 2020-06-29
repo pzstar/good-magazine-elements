@@ -171,7 +171,8 @@ class GME_Widget_Loader {
      * @access public
      */
     public function enqueue_editor_scripts() {
-        
+        wp_enqueue_script('good-magazine-elements-editor', GME_URL . 'assets/js/editor.js', array('jquery'), GME_VERSION, true);
+        wp_localize_script('good-magazine-elements-editor', 'is_elementor_pro_installed', $this->is_elementor_pro_installed());
     }
 
     /**
@@ -190,6 +191,15 @@ class GME_Widget_Loader {
      */
     public function enqueue_preview_styles() {
         
+    }
+
+    /**
+     * Check if theme has elementor Pro installed
+     *
+     * @return boolean
+     */
+    public function is_elementor_pro_installed() {
+        return function_exists('elementor_pro_load_plugin') ? 'yes' : 'no';
     }
 
     /**
